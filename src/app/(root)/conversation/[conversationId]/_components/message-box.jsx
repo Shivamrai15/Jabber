@@ -36,8 +36,8 @@ export const MessageBox = ({
                     <span className={cn(
                         "px-4 py-2 rounded-lg inline-block",
                         isCurrentUser ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white" : "bg-[#1b1b1b] text-white", 
-                        isCurrentUser && "rounded-br-none",
-                        !isCurrentUser && "rounded-bl-none",
+                        !hasNextMessageFromSameUser && isCurrentUser && "rounded-br-none",
+                        !hasNextMessageFromSameUser && !isCurrentUser && "rounded-bl-none",
                     )}>
                         {data.type === "text" && (data.text + ' ')}
                         {data.type === "image" && (
