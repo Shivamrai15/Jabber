@@ -18,7 +18,7 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
 
     useEffect(()=>{
         scrollRef?.current.scrollIntoView();
-    }, [messages]);
+    }, [messages, isTyping]);
 
     useEffect(()=>{
         pusherClient.subscribe(
@@ -96,7 +96,7 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
             );
     
         }
-    }, []);
+    }, [messages, isTyping]);
 
     useEffect(()=>{
         router.refresh();
