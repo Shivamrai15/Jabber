@@ -39,7 +39,7 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
         }
 
         const deleteMessages = ()=>{
-            setMessages(chatId, []);
+            setMessages([]);
         }
 
         const typingStatus = ({
