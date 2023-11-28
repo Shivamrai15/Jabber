@@ -6,6 +6,7 @@ import { ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { signIn } from "next-auth/react"
 import { toast } from "sonner";
+
 const Login = () => {
 
     const [isloading, setIsLoading] = useState(false);
