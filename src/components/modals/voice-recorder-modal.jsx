@@ -1,9 +1,9 @@
 "use client";
 
-// import {
-//     Dialog,
-//     DialogContent,
-// } from "@/components/ui/dialog"
+import {
+    Dialog,
+    DialogContent,
+} from "@/components/ui/dialog"
 // import { useEffect, useState } from "react";
 
 // import {
@@ -18,7 +18,7 @@
 // import {toast} from "sonner";
 // import { useEdgeStore } from "@/lib/edgestore";
 // import axios from "axios";
-// import { useRecordModal } from "@/hooks/use-recorder-modal";
+import { useRecordModal } from "@/hooks/use-recorder-modal";
 // import RecordRTC from 'recordrtc';
 // import { MediaStreamRecorder } from "recordrtc";
 // import { Spinner } from "../spinner";
@@ -29,7 +29,7 @@ export const RecordModal = () => {
 
 
     // const { edgestore } = useEdgeStore();
-    // const { isOpen, onClose, data } = useRecordModal();
+    const { isOpen, onClose, data } = useRecordModal();
 
     // const [recorder, setRecorder] = useState(null);
     // const [isRecording, setIsRecording] = useState(false);
@@ -166,45 +166,42 @@ export const RecordModal = () => {
     // }
 
     return (
-        <div>
-            Hello
-        </div>
-        // <Dialog open = {isOpen} onOpenChange={handleClose} >
-        //     <DialogContent className = "max-w-sm md:max-w-md bg-neutral-900">
-        //         <div className="w-full flex justify-center items-center mt-8">
-        //             <div className="h-20 w-20 flex justify-center items-center">
-        //                 {
-        //                     (elapsedTime === 0 && !isRecording) ? <MicIcon className="h-14 w-14 text-white"/> :
-        //                     <span className="text-3xl font-extrabold">
-        //                         {elapsedTime}
-        //                     </span>
-        //                 }
-        //             </div>
-        //         </div>
-        //         <div className="mx-auto py-8 grid grid-cols-4 gap-x-8">
-        //             <Trash2
-        //                 onClick={deleteRecording}
-        //                 className="h-7 w-7 text-red-500 md:cursor-pointer"
-        //             />
-        //             <StopCircle
-        //                 onClick={stopRecording}
-        //                 className="h-7 w-7 text-red-500 md:cursor-pointer"
-        //             />
-        //             <Icon
-        //                 onClick={toggleRecording}
-        //                 className="h-6 w-6 md:cursor-pointer"
-        //             />
-        //             {
-        //                 isSending ? <Spinner className="h-7 w-7" /> :
-        //                 <SendHorizontal
-        //                     role="button"
-        //                     onClick={sendRecording}
-        //                     aria-disabled = {recordedAudio === null}
-        //                     className="h-7 w-7 text-purple-600 md:cursor-pointer"
-        //                 />
-        //             }
-        //         </div>
-        //     </DialogContent>
-        // </Dialog>
+        <Dialog open = {isOpen} onOpenChange={onClose} >
+            <DialogContent className = "max-w-sm md:max-w-md bg-neutral-900">
+                {/* <div className="w-full flex justify-center items-center mt-8">
+                    <div className="h-20 w-20 flex justify-center items-center">
+                        {
+                            (elapsedTime === 0 && !isRecording) ? <MicIcon className="h-14 w-14 text-white"/> :
+                            <span className="text-3xl font-extrabold">
+                                {elapsedTime}
+                            </span>
+                        }
+                    </div>
+                </div>
+                <div className="mx-auto py-8 grid grid-cols-4 gap-x-8">
+                    <Trash2
+                        onClick={deleteRecording}
+                        className="h-7 w-7 text-red-500 md:cursor-pointer"
+                    />
+                    <StopCircle
+                        onClick={stopRecording}
+                        className="h-7 w-7 text-red-500 md:cursor-pointer"
+                    />
+                    <Icon
+                        onClick={toggleRecording}
+                        className="h-6 w-6 md:cursor-pointer"
+                    />
+                    {
+                        isSending ? <Spinner className="h-7 w-7" /> :
+                        <SendHorizontal
+                            role="button"
+                            onClick={sendRecording}
+                            aria-disabled = {recordedAudio === null}
+                            className="h-7 w-7 text-purple-600 md:cursor-pointer"
+                        />
+                    }
+                </div> */}
+            </DialogContent>
+        </Dialog>
     );
 }
