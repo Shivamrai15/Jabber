@@ -18,7 +18,7 @@ export async function POST (req){
             return new NextResponse("Unauthorized access", {status:401});
         }
 
-        pusherServer.trigger(
+        await pusherServer.trigger(
             toPusherKey(`chat:${conversationId}:typing`),
             "typing_message",
             {

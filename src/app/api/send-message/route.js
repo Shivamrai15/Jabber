@@ -42,13 +42,13 @@ export async function POST (request) {
             timestamp
         };
 
-        pusherServer.trigger(
+        await pusherServer.trigger(
             toPusherKey(`chat:${conversationId}`),
             "incoming_message",
             message
         );
 
-        pusherServer.trigger(
+        await pusherServer.trigger(
             toPusherKey(`user:${conversationFriendId}:chats`),
             'new_message',
             {

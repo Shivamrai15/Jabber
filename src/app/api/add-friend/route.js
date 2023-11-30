@@ -59,7 +59,7 @@ export async function POST (request) {
 
         // send valid freind request
 
-        pusherServer.trigger(
+        await pusherServer.trigger(
             toPusherKey(`user:${idToAdded}:incoming_friend_request`), 
             'incoming_friend_request',
             {
@@ -70,7 +70,7 @@ export async function POST (request) {
             }
         );
 
-        db.sadd(`user:${idToAdded}:incoming_friend_request`, currentUserId);
+        await db.sadd(`user:${idToAdded}:incoming_friend_request`, currentUserId);
 
         return NextResponse.json({
             success : true,
