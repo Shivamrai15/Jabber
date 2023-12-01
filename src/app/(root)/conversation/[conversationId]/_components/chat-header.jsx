@@ -6,7 +6,7 @@ import { ChatSettings } from "./chat-settings";
 const ChatHeader = ({conversationFriend, conversationId}) => {
 
     return (
-        <div className="flex items-center justify-between w-full h-16 bg-neutral-900 px-4 md:px-8">
+        <div className="flex items-center justify-between w-full h-16 bg-neutral-900 px-4 md:px-8 border-b border-black">
             <div className="flex items-center gap-x-4">
                 <div className="md:hidden">
                     <SideBarSheet/>
