@@ -48,7 +48,7 @@ const SidebarFooter = ({
 
     return (
         <>
-            <div className="grid grid-cols-3 gap-x-1 px-3 md:px-5 mt-auto mb-4 place-items-center md:hidden">
+            <div className="grid grid-cols-3 gap-x-1 px-4 mt-auto mb-4 place-items-center md:hidden">
                 <Link
                     href="/notifications"
                     className="flex justify-center px-4 py-2 rounded-md items-center bg-neutral-800 cursor-default w-full"
@@ -68,7 +68,7 @@ const SidebarFooter = ({
                 </div>
 
             </div>
-            <div className="hidden md:flex md:flex-col gap-y-2 px-3 md:px-5 mt-auto mb-5">
+            <div className="hidden md:flex md:flex-col gap-y-2 px-5 mt-auto mb-5">
                     <Link
                         href="/notifications"
                         className="flex justify-between px-4 py-2 rounded-md items-center bg-neutral-800 hover:bg-neutral-800/50"

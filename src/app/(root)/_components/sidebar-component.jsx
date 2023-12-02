@@ -13,7 +13,6 @@ export const SideBarComponent = async() => {
 
     const friends = await getFriendsById(sessionId);
 
-
     const unseenRequestCount = (await fetchRedis('smembers', `user:${sessionId}:incoming_friend_request`)).length;
     
     return (

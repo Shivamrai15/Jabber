@@ -121,11 +121,9 @@ export const MessageInput = ({
                                 conversationId = {conversationId}
                                 conversationFriend = {conversationFriend}
                             />
-                            <div className="hidden md:flex justify-center items-center">
-                                <IconPicker
-                                    onIconChange={onIconChange}
-                                />
-                            </div>
+                            <IconPicker
+                                onIconChange={onIconChange}
+                            />
                             <Input
                                 className = "w-full h-8 bg-neutral-900 border-0 outline-none focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-200 placeholder:text-zinc-600" 
                                 placeholder  = "Type a message"

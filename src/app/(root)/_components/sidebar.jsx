@@ -1,6 +1,6 @@
 "use client";
 
-import { BiMessageSquareDetail } from "react-icons/bi";
+import { MessageCircleIcon } from "lucide-react";
 import Link from "next/link";
 import SidebarFooter from "./sidebar-footer";
 import { ChatBox } from "./chat-box";
@@ -60,15 +60,15 @@ export const Sidebar = ({
 
     return (
         <div className="w-full h-full flex flex-col gap-y-5">
-            <div className="w-full flex justify-between items-center text-white p-3 md:p-5">
-                <h3 className="text-xl md:text-lg font-semibold">Chats</h3>
-                <Link href="/" className="cursor-default md:cursor-pointer">
-                    <BiMessageSquareDetail className="h-6 w-6 text-white"/>
+            <div className="w-full flex justify-between items-center text-white p-5">
+                <h3 className="text-lg font-semibold">Chats</h3>
+                <Link href="/">
+                    <MessageCircleIcon className="h-5 w-5"/>
                 </Link>
             </div>
             <div className="h-full w-full overflow-y-auto">
                 <nav className="flex flex-1 flex-col w-full">
-                    <ul role="list" className="flex flex-1 flex-col gap-y-1 px-3 md:px-5 w-full">
+                    <ul role="list" className="flex flex-1 flex-col gap-y-7 px-5 w-full">
                         {friends.sort().map((friend)=>{
                             const unseenMessagesCount = unseenMessages.filter((unseenMessage)=>{
                                 return unseenMessage.senderId === friend.id;
