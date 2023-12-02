@@ -49,7 +49,7 @@ const ConversationPage = async({params}) => {
 
 
     return (
-        <div className="w-full fex flex-col h-full">
+        <div className="w-full fex flex-col h-full bg-[url('/images/chat-bg.png')] bg-contain">
             <ChatHeader
                 conversationFriend={conversationFriend}
                 conversationId = {conversationId}

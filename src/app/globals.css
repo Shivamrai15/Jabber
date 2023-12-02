@@ -12,8 +12,9 @@ body,
 
 @media screen and (min-width : 768px) {
   .message-scroll::-webkit-scrollbar{
-    background: #262626;
+    background: #00000000;
   }
+  
   .message-scroll::-webkit-scrollbar-thumb{
     border-radius: 1rem;
     border: 4px solid transparent;
