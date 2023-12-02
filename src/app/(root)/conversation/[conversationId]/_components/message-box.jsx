@@ -60,7 +60,7 @@ export const MessageBox = ({
                         }
                         <span
                             className = {cn(
-                                "text-[10px] text-zinc-200",
+                                "text-[10px] text-zinc-200  whitespace-nowrap",
                                 data.type === "text" && "ml-2"
                             )}
                         >
