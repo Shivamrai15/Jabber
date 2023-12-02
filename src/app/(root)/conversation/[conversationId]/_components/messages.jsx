@@ -104,14 +104,7 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
 
 
     return (
-<<<<<<< HEAD
-        <div className = {cn(
-            "w-full h-[calc(100%-160px)] flex-col-reverse gap-4 px-5 md:px-8 lg:px-14 overflow-y-auto message-scroll",
-            messages.length === 0 && !isTyping && "flex justify-center items-center"
-        )}>
-=======
         <div className="w-full h-[calc(100%-160px)] flex-1 flex-col-reverse gap-4 px-5 md:px-8 lg:px-14 overflow-y-auto message-scroll">
->>>>>>> parent of 85fe771 (adding empty message display)
             {messages.map((message, index)=>{
                 const isCurrentUser = message.senderId === sessionId;
                 const hasNextMessageFromSameUser = messages?.[index+1]?.senderId === messages?.[index]?.senderId
