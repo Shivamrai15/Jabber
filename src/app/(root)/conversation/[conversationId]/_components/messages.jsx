@@ -2,8 +2,9 @@
 import { useEffect, useRef, useState} from "react"
 import { MessageBox } from "./message-box";
 import { pusherClient } from "@/lib/pusher";
-import { toPusherKey } from "@/lib/utils";
+import { cn, toPusherKey } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
+import { EmptyMessage } from "./empty-message";
 
 export const revalidate = 0;
 
@@ -104,7 +105,13 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
 
 
     return (
-        <div className="w-full h-[calc(100%-160px)] flex-1 flex-col-reverse gap-4 px-5 md:px-8 lg:px-14 overflow-y-auto message-scroll">
+        <div className = {cn(
+            "w-full h-[calc(100%-160px)] flex-col-reverse gap-4 px-5 md:px-8 lg:px-14 overflow-y-auto message-scroll",
+            messages.length === 0 && !isTyping && "flex justify-center items-center"
+        )}>
+            {messages.length === 0 && !isTyping && (
+                <EmptyMessage/>
+            )}
             {messages.map((message, index)=>{
                 const isCurrentUser = message.senderId === sessionId;
                 const hasNextMessageFromSameUser = messages?.[index+1]?.senderId === messages?.[index]?.senderId
@@ -126,5 +133,5 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
             }
             <div className="h-5 w-full" ref={scrollRef}/>
         </div>
-    )
+    );
 }
