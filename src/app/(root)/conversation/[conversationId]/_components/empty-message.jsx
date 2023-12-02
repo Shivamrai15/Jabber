@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image"
 
 export const EmptyMessage = () => {
@@ -24,7 +25,7 @@ export const EmptyMessage = () => {
                     className="object-fill"
                     fill
                     alt="image"
-                    src={images[0]}
+                    src={images[randomImage]}
                 />
             </div> 
         </div>
