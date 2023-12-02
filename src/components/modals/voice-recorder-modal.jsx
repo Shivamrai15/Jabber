@@ -168,9 +168,6 @@ export const RecordModal = () => {
     return (
         <Dialog open = {isOpen} onOpenChange={onClose} >
             <DialogContent className = "max-w-sm md:max-w-md bg-neutral-900">
-                <div className="flex w-full h-72 justify-center items-center text-sm text-zinc-400">
-                    This feature is under development phase
-                </div>
                 {/* <div className="w-full flex justify-center items-center mt-8">
                     <div className="h-20 w-20 flex justify-center items-center">
                         {
