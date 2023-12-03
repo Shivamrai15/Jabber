@@ -22,7 +22,7 @@ export const MessageBox = ({
         <div>
             <div
                 className={cn(
-                    "flex items-end py-2",
+                    "flex items-end py-0.5",
                     isCurrentUser && "justify-end"
                 )}
             >

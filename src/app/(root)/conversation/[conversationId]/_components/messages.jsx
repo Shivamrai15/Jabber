@@ -113,7 +113,7 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
 
     return (
         <div className={cn(
-            "w-full h-[calc(100%-160px)] flex-1 flex-col-reverse gap-4 px-5 md:px-8 lg:px-14 overflow-y-auto message-scroll",
+            "w-full h-[calc(100%-160px)] flex-1 flex-col-reverse gap-4 py-5 px-5 md:px-8 lg:px-14 overflow-y-auto message-scroll",
             messages.length === 0 && !isTyping && "flex justify-center items-center"
         )}>
             {messages.map((message, index)=>{
