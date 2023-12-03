@@ -17,7 +17,7 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
 
 
     useEffect(()=>{
-        scrollRef?.current.scrollIntoView();
+        scrollRef?.current?.scrollIntoView();
     }, [messages, isTyping]);
 
     useEffect(()=>{
@@ -46,10 +46,6 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
             isTyping,
             conversationFriendId
         }) => {
-
-            console.log("Typing functionn is working", isTyping);
-
-
             if (conversationFriendId === sessionId && isTyping === true){
                 setIsTyping(true);
             } else {
@@ -102,6 +98,15 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
         router.refresh();
     }, [pathname])
 
+    if (!isTyping && messages?.length === 0){
+        return (
+            <div className="w-full h-[calc(100%-160px)] flex justify-center items-center">
+                <div  className="max-w-sm w-72 relative bg-black bg-opacity-40 flex flex-col justify-center items-center rounded-xl p-4 cursor-default">
+                    💀 Chat's dead, hit me up. 💯
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div className={cn(
@@ -127,16 +132,7 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
                     </div>
                 )
             }
-            {
-                (!isTyping && messages?.length === 0) && (
-                    <div
-                        className="max-w-sm w-72 relative bg-black bg-opacity-40 flex flex-col justify-center items-center rounded-xl p-4 cursor-default"
-                    >
-                        Chat's dead, hit me up.
-                    </div>
-                )
-            }
             <div className="h-5 w-full" ref={scrollRef}/>
         </div>
-    )
+    );
 }
