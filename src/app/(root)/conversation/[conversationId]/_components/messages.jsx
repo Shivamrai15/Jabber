@@ -128,7 +128,7 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
                 )
             }
             {
-                !isTyping && messages.length === 0 && (
+                (!isTyping && messages.length === 0) && (
                     <div
                         className="max-w-sm w-72 relative bg-black bg-opacity-40 flex flex-col justify-center items-center rounded-xl p-4 cursor-default"
                     >
