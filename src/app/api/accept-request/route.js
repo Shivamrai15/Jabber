@@ -2,6 +2,8 @@ import { getCurrentUserId } from "@/helpers/getCurrentUserId";
 import { fetchRedis } from "@/helpers/redis";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { pusherServer } from "@/lib/pusher";
+import { toPusherKey } from "@/lib/utils";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { z } from "zod";
@@ -45,11 +47,13 @@ export async function POST (request){
         await pusherServer.trigger(
             toPusherKey(`user:${idToAddFriend}:accept_friend_request`), 
             'accept_friend_request',
+            {}
         );
 
         return new NextResponse("Ok", { status:200 });
 
     } catch (error) {
+        console.log(error);
         return new NextResponse("Internal server Error", {status : 500});
     }
 }
