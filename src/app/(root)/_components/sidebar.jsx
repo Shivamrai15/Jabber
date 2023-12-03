@@ -89,7 +89,6 @@ export const Sidebar = ({
                                 key={friend.id}
                                 data = {friend}
                                 pathname = {pathname}
-                                chatId = {conversationIdGenerator(sessionId, friend.id)}
                                 unseenMessagesCount = {unseenMessagesCount}
                                 lastMessage = {last_message[conversationIdGenerator(sessionId, friend.id)]}
                                 href={`/conversation/${conversationIdGenerator(sessionId, friend.id)}`}

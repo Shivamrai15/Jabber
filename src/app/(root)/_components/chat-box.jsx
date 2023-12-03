@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
+import { ImageIcon, FileIcon } from "lucide-react";
 
 export const ChatBox = ({
     href,
@@ -12,7 +13,6 @@ export const ChatBox = ({
     pathname,
     unseenMessagesCount,
     lastMessage,
-    chatId
 }) => {
 
     const router = useRouter();
@@ -40,7 +40,7 @@ export const ChatBox = ({
                         <span className="text-sm text-white truncate font-semibold">
                             {data.name}
                         </span>
-                        <p className="text-xs text-zinc-400 truncate">
+                        <p className="text-[13px] text-zinc-400 truncate">
                             {
                                 lastMessage?.type === "text" ? (
                                     <span>
@@ -48,11 +48,13 @@ export const ChatBox = ({
                                     </span>
                                 ) :
                                 lastMessage?.type === "image" ? (
-                                    <span>
+                                    <span className="flex items-center justify-start gap-x-2">
+                                        <ImageIcon className="h-3 w-3"/>
                                         Image
                                     </span>
                                 ) : (
-                                    <span>
+                                    <span  className="flex items-center justify-start gap-x-2">
+                                        <FileIcon className="h-3 w-3"/>
                                         Document
                                     </span>
                                 )

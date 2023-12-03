@@ -44,6 +44,7 @@ const AddFriend = () => {
 
     const onSubmit = async({email})=>{
         try {
+            setIsAdding(true)
             const data = await axios.post("/api/add-friend", {
                 email
             });
@@ -51,6 +52,8 @@ const AddFriend = () => {
         } catch (error) {
             toast.error(error.message)
             console.error(error);
+        } finally{
+            setIsAdding(false);
         }
     }
 
