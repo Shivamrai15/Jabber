@@ -132,7 +132,7 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
                     <div
                         className="max-w-sm w-72 relative bg-black bg-opacity-40 flex flex-col justify-center items-center rounded-xl p-4 cursor-default"
                     >
-                        💀 Chat's dead, hit me up. 💯
+                        Chat's dead, hit me up.
                     </div>
                 )
             }
