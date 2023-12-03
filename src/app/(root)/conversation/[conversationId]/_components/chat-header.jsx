@@ -14,12 +14,12 @@ const ChatHeader = ({conversationFriend, conversationId}) => {
                 <Avatar className = "h-10 w-10">
                     <AvatarImage src = {conversationFriend.image}/>
                 </Avatar>
-                <div className="flex flex-col w-full truncate cursor-default">
+                <div className="flex flex-col w-full truncate">
                     <p className="text-zinc-200 font-medium text-sm">{conversationFriend.name}</p>
                     <p className="text-zinc-500 text-xs">{conversationFriend.email}</p>
                 </div>
             </div>
-            <div className="flex justify-center items-center md:cursor-pointer">
+            <div className="flex justify-center items-center">
                 <ChatSettings
                     conversationId = {conversationId}
                 />
