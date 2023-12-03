@@ -42,6 +42,11 @@ export async function POST (request){
 
         await db.srem(`user:${currentUserId}:incoming_friend_request`, idToAddFriend);
 
+        await pusherServer.trigger(
+            toPusherKey(`user:${idToAddFriend}:accept_friend_request`), 
+            'accept_friend_request',
+        );
+
         return new NextResponse("Ok", { status:200 });
 
     } catch (error) {

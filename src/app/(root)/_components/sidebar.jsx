@@ -23,6 +23,7 @@ export const Sidebar = ({
     useEffect(()=>{
         pusherClient.subscribe(toPusherKey(`user:${sessionId}:chats`));
         pusherClient.subscribe(toPusherKey(`user:${sessionId}:friends`));
+        pusherClient.subscribe(toPusherKey(`user:${sessionId}:accept_friend_request`));
 
         const newfriendHandler = ()=>{
             router.refresh();
@@ -38,13 +39,16 @@ export const Sidebar = ({
 
         pusherClient.bind('new_message', chatHandler);
         pusherClient.bind('new_friend', newfriendHandler);
+        pusherClient.bind('accept_friend_request', newfriendHandler);
 
 
         return () =>{
             pusherClient.unbind('new_message', chatHandler);
             pusherClient.unbind('new_friend', newfriendHandler);
+            pusherClient.unbind('accept_friend_request', newfriendHandler);
             pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:chats`));
             pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:friends`));
+            pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:accept_friend_request`));
         }
     }, [pathname]);
 
