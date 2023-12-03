@@ -52,12 +52,12 @@ export const ChatBox = ({
                                         <ImageIcon className="h-3 w-3"/>
                                         Image
                                     </span>
-                                ) : (
+                                ) : lastMessage?.type === "document" ? (
                                     <span  className="flex items-center justify-start gap-x-2">
                                         <FileIcon className="h-3 w-3"/>
                                         Document
                                     </span>
-                                )
+                                ) : ""
                             }
                         </p>
                     </div>
