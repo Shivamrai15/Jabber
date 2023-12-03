@@ -109,7 +109,7 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
             messages.length === 0 && !isTyping && "flex justify-center items-center"
         )}>
             {
-                messages.length === 0 &&  (
+                (
                     <div className="max-w-sm w-72 relative bg-black bg-opacity-40 flex flex-col justify-center items-center rounded-xl py-4 px-2 cursor-default">
                         <p>
                             💀 Chat's dead, hit me up. 💯
