@@ -108,15 +108,6 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
             "w-full h-[calc(100%-160px)] flex-1 flex-col-reverse gap-4 px-5 md:px-8 lg:px-14 overflow-y-auto message-scroll",
             messages.length === 0 && !isTyping && "flex justify-center items-center"
         )}>
-            {
-                (
-                    <div className="max-w-sm w-72 relative bg-black bg-opacity-40 flex flex-col justify-center items-center rounded-xl py-4 px-2 cursor-default">
-                        <p>
-                            💀 Chat's dead, hit me up. 💯
-                        </p>
-                    </div>
-                )
-            }
             {messages.map((message, index)=>{
                 const isCurrentUser = message.senderId === sessionId;
                 const hasNextMessageFromSameUser = messages?.[index+1]?.senderId === messages?.[index]?.senderId
