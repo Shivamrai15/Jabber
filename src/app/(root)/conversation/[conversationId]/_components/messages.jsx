@@ -4,6 +4,7 @@ import { MessageBox } from "./message-box";
 import { pusherClient } from "@/lib/pusher";
 import { cn, toPusherKey } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
+import { useLastMessage } from "@/hooks/use-last-message";
 
 export const revalidate = 0;
 
@@ -14,7 +15,7 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
     const scrollRef = useRef(null);
     const [messages, setMessages] = useState(initialMessages);
     const [isTyping, setIsTyping] = useState(false);
-
+    const { setLastMessages } = useLastMessage()
 
     useEffect(()=>{
         scrollRef?.current?.scrollIntoView();
@@ -36,10 +37,12 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
         const messageHandler = (message) =>{
             setIsTyping(false);
             setMessages((prev)=>[...prev, message]);
+            setLastMessages(message, chatId);
         }
 
         const deleteMessages = ()=>{
             setMessages([]);
+            setLastMessages('', chatId);
         }
 
         const typingStatus = ({

@@ -8,17 +8,24 @@ import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { conversationIdGenerator, toPusherKey } from "@/lib/utils";
 import { pusherClient } from "@/lib/pusher";
+import { useLastMessage } from "@/hooks/use-last-message";
 
 export const Sidebar = ({
     initialUnseenRequestCount,
     sessionId,
-    friends
+    friends,
+    lastMessages
 }) => {
 
     const router = useRouter();
     const pathname = usePathname(); 
 
     const [unseenMessages, setUnseenMessages] = useState([]);
+    const {last_message, setInitialLastMessages, setLastMessages} = useLastMessage();
+
+    useEffect(()=>{
+           setInitialLastMessages(lastMessages);
+    }, [lastMessages]);
 
     useEffect(()=>{
         pusherClient.subscribe(toPusherKey(`user:${sessionId}:chats`));
@@ -34,6 +41,7 @@ export const Sidebar = ({
             if(!shouldNotify){
                 return;
             }
+            setLastMessages(message, conversationIdGenerator(sessionId, message.senderId));
             setUnseenMessages((prev)=>[...prev, message]);
         }
 
@@ -81,7 +89,9 @@ export const Sidebar = ({
                                 key={friend.id}
                                 data = {friend}
                                 pathname = {pathname}
+                                chatId = {conversationIdGenerator(sessionId, friend.id)}
                                 unseenMessagesCount = {unseenMessagesCount}
+                                lastMessage = {last_message[conversationIdGenerator(sessionId, friend.id)]}
                                 href={`/conversation/${conversationIdGenerator(sessionId, friend.id)}`}
                             />
                         })}
