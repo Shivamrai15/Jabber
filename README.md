@@ -3,7 +3,7 @@
 
 
 
-Jabber is a cool chat app made with Next.js 14 and styled using Tailwind CSS. It stores stuff like images and documents in an Upstash Redis database and Edge Store. Plus, it uses Pusher for quick chatting and notifications. Check out its main features listed below!
+Jabber is a cool chat app made with Next.js 14 and styled using Tailwind CSS. It uses an Upstash Redis database and an Edge Store to store files like documents and photos. Plus, it uses Pusher for instant messaging and alerts. Take a look at the key attributes stated below!
 
 
 

@@ -2,6 +2,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import Image from "next/image"
 
 import { Button } from "@/components/ui/button";
 import {
@@ -12,10 +13,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
-import {
-    HashIcon
-} from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import axios from "axios";
@@ -58,15 +55,17 @@ const AddFriend = () => {
     }
 
     return (
-        <section  className="w-full h-full flex flex-col justify-center items-center">
-            <div className="flex items-center max-w-xs md:w-96 gap-x-4">
-                <div className="h-20 w-20 rounded-full flex justify-center items-center bg-gradient-to-br from-pink-600 to-purple-600">
-                    <HashIcon className="h-14 w-14"/>
-                </div>
-                <div>
-                    <p className="text-xl font-semibold">Wanna a friend?</p>
-                </div>
+        <section  className="w-full h-full flex flex-col items-center">
+            <div className="flex items-center translate-y-28 text-4xl font-extrabold text-zinc-400">
+                Wanna a friend ?
             </div>
+            <Image 
+                    height={250}
+                    width={250}
+                    src="/images/panda.png"
+                    alt="image"
+                    className="z-10 translate-y-[127px]"
+            />
             <div className="mt-12 pt-8 max-w-xs md:w-96 rounded-lg p-5 bg-neutral-900">
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -87,7 +86,7 @@ const AddFriend = () => {
                             )}
                         />
                         <Button type="submit" className = "w-full text-zinc-600">
-                            { isAdding ? <Spinner/> : "Add friend"}
+                            { isAdding ? <Spinner/> : "Send Request"}
                         </Button>
                     </form>
                 </Form>

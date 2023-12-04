@@ -81,6 +81,9 @@ export const FriendRequests = ({incomingFriendRequests, sessionId}) => {
                         width={300}
                         alt="Image"
                     />
+                    <div className="text-[#6edff6] text-sm w-72 text-center bg-[#032830] rounded-lg p-4 border-2 border-[#087990]">
+                        Nothing to show here
+                    </div>
                 </div>
             ) : (
                 <div className="mt-10 flex flex-col gap-y-4">
