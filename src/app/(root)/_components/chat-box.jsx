@@ -19,7 +19,26 @@ export const ChatBox = ({
 
     const formatTimeStamp = (timestamp)=>{
         if (!timestamp) return '';
-        return format(timestamp, "HH:mm");
+        const current_timestamp = Date.now();
+        const diff_timestamp  = Math.abs(current_timestamp-timestamp)
+        if ( diff_timestamp < 24 * 60 * 60 * 1000 ){
+            return format(timestamp, "HH:mm");
+        }
+        else if (diff_timestamp < 48 * 60 * 60 * 1000 && diff_timestamp >= 24 * 60 * 60 * 1000 ){
+            return "Yesterday"
+        }
+        else {
+            return format(timestamp, "dd-MM-yy");
+        }
+    }
+
+    const documentName = (document)=>{
+        if (!document)
+            return 'Document';
+        else {
+            const name = JSON.parse(document);
+            return name.fileName
+        }
     }
 
 
@@ -55,7 +74,9 @@ export const ChatBox = ({
                                 ) : lastMessage?.type === "document" ? (
                                     <span  className="flex items-center justify-start gap-x-2">
                                         <FileIcon className="h-3 w-3"/>
-                                        Document
+                                        <span className="truncate w-40">
+                                            {documentName(lastMessage?.text)}
+                                        </span>
                                     </span>
                                 ) : ""
                             }

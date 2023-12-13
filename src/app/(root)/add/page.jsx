@@ -56,7 +56,7 @@ const AddFriend = () => {
 
     return (
         <section  className="w-full h-full flex flex-col items-center">
-            <div className="flex items-center translate-y-28 text-4xl font-extrabold text-zinc-400">
+            <div className="flex items-center translate-y-28 text-4xl font-extrabold text-zinc-300">
                 Wanna a friend ?
             </div>
             <Image 

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { RequestMessage } from "./request-message";
 import axios from "axios";
@@ -9,6 +8,7 @@ import { toast } from "sonner";
 import { pusherClient } from "@/lib/pusher";
 import { toPusherKey } from "@/lib/utils";
 import { useNotification } from "@/hooks/use-notifications";
+import { BellRing } from "lucide-react";
 
 export const FriendRequests = ({incomingFriendRequests, sessionId}) => {
 
@@ -74,15 +74,12 @@ export const FriendRequests = ({incomingFriendRequests, sessionId}) => {
     return (
         <>
             {friendRequests.length === 0 ? (
-                <div className="flex flex-1 flex-col justify-center items-center mt-20">
-                    <Image
-                        src="/images/Error-amico.svg"
-                        height={300}
-                        width={300}
-                        alt="Image"
+                <div className="flex flex-1 flex-col justify-center items-center mt-20 gap-y-5">
+                    <BellRing
+                        className="text-zinc-300 h-12 w-12"
                     />
-                    <div className="text-[#6edff6] text-sm w-72 text-center bg-[#032830] rounded-lg p-4 border-2 border-[#087990]">
-                        Nothing to show here
+                    <div className="text-zinc-300 cursor-default font-semibold text-center">
+                        Nothing to show here...
                     </div>
                 </div>
             ) : (

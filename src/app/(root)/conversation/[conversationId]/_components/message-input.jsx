@@ -139,12 +139,12 @@ export const MessageInput = ({
                             <div className="bg-neutral-800 h-full rounded-bl-2xl w-5"/>
                         </div>
                     </div>
-                    <div
+                    {/* <div
                         className="w-14 h-14 flex justify-center items-center bg-neutral-900 rounded-full cursor-default md:cursor-pointer"
                         onClick={onOpen}
                     >
                         <MicIcon/>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

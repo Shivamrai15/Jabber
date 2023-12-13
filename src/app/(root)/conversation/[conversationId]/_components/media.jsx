@@ -50,22 +50,22 @@ export const Media = ({
             <DropdownMenuTrigger>
                 <Paperclip className="text-white"/>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className = "w-60 bg-neutral-900 border border-zinc-600 py-4" side = "top-right">
+            <DropdownMenuContent className = "w-56 bg-neutral-900 border border-zinc-600 py-4" side = "top">
                 <div className="grid grid-rows-2">
                     <DropdownMenuItem
                         onClick = {onOpen}
-                        className = "focus:bg-neutral-800 text-zinc-400 focus:text-white md:cursor-pointer"
+                        className = "focus:bg-neutral-800 text-sm text-zinc-400 focus:text-white md:cursor-pointer"
                     >
-                        <BsImage className="h-6 w-6 ml-2" />
+                        <BsImage className="h-4 w-4 ml-4" />
                         <span className="ml-4">
                             Images
                         </span>
                     </DropdownMenuItem>
                     <DropdownMenuItem
                         onClick = {onOpenDocument}
-                        className = "focus:bg-neutral-800 text-zinc-400 focus:text-white md:cursor-pointer"
+                        className = "focus:bg-neutral-800 text-sm text-zinc-400 focus:text-white md:cursor-pointer"
                     >
-                        <GoFileDirectory className="h-7 w-7 ml-2" />
+                        <GoFileDirectory className="h-5 w-5 ml-4" />
                         <span className="ml-3">Documents</span>
                     </DropdownMenuItem>
                 </div>

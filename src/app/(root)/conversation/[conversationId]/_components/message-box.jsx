@@ -18,12 +18,18 @@ export const MessageBox = ({
         return format(timestamp, "dd-LLL HH:mm")
     }
 
+    function containsOnlyEmojis(inputString) {
+        const emojiPattern = /[\p{Emoji}]/gu;
+        return emojiPattern.test(inputString) && inputString.match(emojiPattern).join('') === inputString;
+    }
+
     return (
         <div>
             <div
                 className={cn(
                     "flex items-end py-0.5",
-                    isCurrentUser && "justify-end"
+                    isCurrentUser && "justify-end",
+                    !hasNextMessageFromSameUser && "pb-3"
                 )}
             >
                 <div
@@ -34,10 +40,11 @@ export const MessageBox = ({
                     )}
                 >
                     <span className={cn(
-                        "px-4 py-2 rounded-lg inline-block",
-                        isCurrentUser ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white" : "bg-[#1b1b1b] text-white", 
+                        "px-4 py-2 rounded-3xl inline-block",
+                        !containsOnlyEmojis(data.text) && isCurrentUser ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white" : "bg-[#1b1b1b] text-white", 
                         !hasNextMessageFromSameUser && isCurrentUser && "rounded-br-none",
                         !hasNextMessageFromSameUser && !isCurrentUser && "rounded-bl-none",
+                        data.type === "text" && containsOnlyEmojis(data.text) && "bg-transparent text-5xl text-center"
                     )}>
                         {data.type === "text" && (data.text + ' ')}
                         {data.type === "image" && (
@@ -58,14 +65,14 @@ export const MessageBox = ({
                                 />
                             )
                         }
-                        <span
+                        { !containsOnlyEmojis(data.text) && <span
                             className = {cn(
                                 "text-[10px] text-zinc-200 whitespace-nowrap",
-                                data.type === "text" && "ml-2"
+                                data.type === "text" && "ml-auto"
                             )}
                         >
                             {formatTimeStamp(data.timestamp)}
-                        </span>
+                        </span>}
                     </span>
                 </div>
             </div>
