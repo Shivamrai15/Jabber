@@ -43,12 +43,12 @@ const AddFriend = () => {
         try {
             const preprossed_email = `${email}`.toLowerCase().trimEnd();
             setIsAdding(true);
-            const data = await axios.post("/api/add-friend", {
+            await axios.post("/api/add-friend", {
                 preprossed_email
             });
             toast.success("Friend request has been send");
         } catch (error) {
-            toast.error(error.message)
+            toast.error(error?.response?.data)
             console.error(error);
         } finally{
             setIsAdding(false);

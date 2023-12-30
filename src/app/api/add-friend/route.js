@@ -9,13 +9,15 @@ import { toPusherKey } from "@/lib/utils";
 
 export async function POST (request) {
     try {
-        const {email : emailToAdd} = await request.json();
+        const {preprossed_email : emailToAdd} = await request.json();
 
         const session = await getServerSession(authOptions);
 
         if(!session){
             return new NextResponse("Unauthorized access" , {status : 401});
         }
+
+        console.log(emailToAdd)
 
         if (emailToAdd === session.user.email){
             return new NextResponse("You cannot add yourself as a friend" , {status : 400});
@@ -31,13 +33,13 @@ export async function POST (request) {
         });
 
         const data = await restResponse.json();
-
-        const idToAdded = data.result;
-
-        if(!data){
-            return new NextResponse("User does not exist" , {status : 404});
+        
+        if(!data.result){
+            return new NextResponse("Account does not exist" , {status : 404});
         }
         
+
+        const idToAdded = data.result;
 
         // valid request
 
