@@ -4,7 +4,6 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { ImageTypeMessage } from "./image-type-message";
 import { DocumenTypeMessage } from "./document-type-message";
-import { useEffect } from "react";
 import { RecordingTypeMessage } from "./recording-type-message";
 
 export const MessageBox = ({
@@ -40,7 +39,7 @@ export const MessageBox = ({
                     )}
                 >
                     <span className={cn(
-                        "px-4 py-2 rounded-3xl inline-block",
+                        "px-4 py-2 rounded-3xl inline-block cursor-default",
                         !containsOnlyEmojis(data.text) && isCurrentUser ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white" : "bg-[#1b1b1b] text-white", 
                         !hasNextMessageFromSameUser && isCurrentUser && "rounded-br-none",
                         !hasNextMessageFromSameUser && !isCurrentUser && "rounded-bl-none",

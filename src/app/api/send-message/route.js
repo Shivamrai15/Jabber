@@ -16,7 +16,8 @@ export async function POST (request) {
             conversationId,
             sessionId,
             conversationFriendId,
-            conversationFriend
+            conversationFriend,
+            isEdited
         } = await request.json();
 
         const session = await getServerSession(authOptions);
@@ -39,7 +40,8 @@ export async function POST (request) {
             senderId : sessionId,
             text,
             type,
-            timestamp
+            timestamp,
+            isEdited
         };
 
         await pusherServer.trigger(

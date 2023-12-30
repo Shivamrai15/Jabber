@@ -74,6 +74,7 @@ export const MessageInput = ({
             await axios.post("/api/send-message", {
                 text : text_message,
                 type : "text",
+                isEdited : false,
                 conversationId : conversationId,
                 sessionId,
                 conversationFriendId,

@@ -56,7 +56,7 @@ const Login = () => {
                 </div>
                     <div className="flex flex-col gap-y-2 justify-center items-center mb-10">
                         <button
-                            className = "bg-neutral-900 w-72 h-16 border-[1px] text-white border-zinc-500 rounded-lg flex items-center justify-between px-4 cursor-default md:cursor-pointer hover:bg-neutral-800"
+                            className = "bg-neutral-900/80 w-72 h-16 border-[1px] text-white border-zinc-500 rounded-lg flex items-center justify-between px-4 cursor-default md:cursor-pointer hover:bg-neutral-800 transition-colors"
                             type="button"
                             disabled = {isloading}
                             onClick={loginWithGoogle}
@@ -68,7 +68,7 @@ const Login = () => {
                             <ChevronRight/>
                         </button>
                         <button
-                            className = "bg-neutral-900 w-72 h-16 border-[1px] text-white border-zinc-500 rounded-lg flex items-center justify-between px-4 cursor-default md:cursor-pointer hover:bg-neutral-800"
+                            className = "bg-neutral-900/80 w-72 h-16 border-[1px] text-white border-zinc-500 rounded-lg flex items-center justify-between px-4 cursor-default md:cursor-pointer hover:bg-neutral-800 transition-colors"
                             type="button"
                             disabled = {isloading}
                             onClick={loginWithGithub}
