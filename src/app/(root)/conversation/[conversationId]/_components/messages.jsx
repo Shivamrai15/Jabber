@@ -1,25 +1,10 @@
 "use client";
-import { useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState} from "react"
 import { MessageBox } from "./message-box";
 import { pusherClient } from "@/lib/pusher";
 import { cn, toPusherKey } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
 import { useLastMessage } from "@/hooks/use-last-message";
-
-import {
-    ContextMenu,
-    ContextMenuContent,
-    ContextMenuItem,
-    ContextMenuTrigger,
-} from "@/components/ui/context-menu";
-
-import {
-    Copy,
-    Trash2,
-    Pencil,
-    Forward,
-    Atom
-}  from "lucide-react";
 
 export const revalidate = 0;
 
@@ -114,12 +99,7 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
 
     useEffect(()=>{
         router.refresh();
-    }, [pathname]);
-
-
-    const copyMessage = (message) => {
-        navigator.clipboard.writeText(message);
-    }
+    }, [pathname])
 
     // if (!isTyping && messages?.length === 0){
     //     return (
@@ -139,52 +119,12 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
             {messages.map((message, index)=>{
                 const isCurrentUser = message.senderId === sessionId;
                 const hasNextMessageFromSameUser = messages?.[index+1]?.senderId === messages?.[index]?.senderId
-                return <ContextMenu>
-                    <ContextMenuTrigger>
-                        <MessageBox
-                            key = {`${message.id}-${message.timestamp}`}
-                            data = {message}
-                            isCurrentUser = {isCurrentUser}
-                            hasNextMessageFromSameUser = {hasNextMessageFromSameUser}
-                        />
-                    </ContextMenuTrigger>
-                    <ContextMenuContent align = "top" className = "w-52 bg-neutral-900">
-                        {
-                            message.type === "text" && 
-                            <ContextMenuItem
-                                onClick = {()=>copyMessage(message.text)}
-                            >
-                                <Copy className="h-5 w-5 ml-1 mr-4"/>
-                                Copy
-                            </ContextMenuItem>
-                        }
-                        <ContextMenuItem>
-                            <Forward className="h-5 w-5 ml-1 mr-4"/>
-                            Forward
-                        </ContextMenuItem>
-                        {
-                            isCurrentUser && 
-                            <ContextMenuItem>
-                                <Trash2 className="h-5 w-5 ml-1 mr-4"/>
-                                Delete
-                            </ContextMenuItem>
-                        }
-                        {
-                            isCurrentUser && message.type === "text" &&
-                            <ContextMenuItem>
-                                <Pencil className="h-5 w-5 ml-1 mr-4"/>
-                                Edit
-                            </ContextMenuItem>
-                        }
-                        {
-                            !isCurrentUser && message.type === "text" &&
-                            <ContextMenuItem>
-                                <Atom className="h-5 w-5 ml-1 mr-4"/>
-                                Ask AI
-                            </ContextMenuItem>
-                        }
-                    </ContextMenuContent>
-                </ContextMenu>
+                return <MessageBox
+                    key = {`${message.id}-${message.timestamp}`}
+                    data = {message}
+                    isCurrentUser = {isCurrentUser}
+                    hasNextMessageFromSameUser = {hasNextMessageFromSameUser}
+                />
             })}
             {
                 isTyping && (
