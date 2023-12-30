@@ -36,7 +36,7 @@ const Login = () => {
     }
 
     return (
-        <div className="bg-neutral-900 flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[url('/images/chat-bg.png')] bg-contain">
+        <div className="bg-neutral-900 flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="w-full flex flex-col items-center justify-center max-w-md gap-y-8 rounded-lg bg-opacity-40 bg-black">
                 <div className="flex flex-col items-center gap-8 mt-10">
                     <Image 

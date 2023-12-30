@@ -58,20 +58,22 @@ export const UploadImageModal = () => {
     const sendMessage = async () => {
         try {
 
-            const msg_data =  JSON.stringify({
-                url : responseUrl,
-                message
-            });
-
-            await axios.post("/api/send-message", {
-                text : msg_data,
-                type : "image",
-                conversationId : data.conversationId,
-                sessionId : data.sessionId,
-                conversationFriendId : data.conversationFriendId,
-                conversationFriend : data.conversationFriend
-            });
-            handleOnCancel();
+            if (responseUrl !== null){
+                const msg_data =  JSON.stringify({
+                    url : responseUrl,
+                    message
+                });
+    
+                await axios.post("/api/send-message", {
+                    text : msg_data,
+                    type : "image",
+                    conversationId : data.conversationId,
+                    sessionId : data.sessionId,
+                    conversationFriendId : data.conversationFriendId,
+                    conversationFriend : data.conversationFriend
+                });
+                handleOnCancel();
+            }
         } catch (error) {
             toast.error("Something went wrong!");
         }

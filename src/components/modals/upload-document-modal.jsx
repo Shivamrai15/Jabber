@@ -61,15 +61,17 @@ export const UploadDocumentModal = () => {
 
     const sendMessage = async () => {
         try {
-            await axios.post("/api/send-message", {
-                text : responseUrl,
-                type : "document",
-                conversationId : data.conversationId,
-                sessionId : data.sessionId,
-                conversationFriendId : data.conversationFriendId,
-                conversationFriend : data.conversationFriend
-            });
-            handleOnCancel();
+            if (responseUrl !== null){
+                await axios.post("/api/send-message", {
+                    text : responseUrl,
+                    type : "document",
+                    conversationId : data.conversationId,
+                    sessionId : data.sessionId,
+                    conversationFriendId : data.conversationFriendId,
+                    conversationFriend : data.conversationFriend
+                });
+                handleOnCancel();
+            }
         } catch (error) {
             toast.error("Something went wrong!");
         }

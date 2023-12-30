@@ -58,6 +58,11 @@ export const MessageInput = ({
     const sendMessage = async()=>{
         try {
             setIsLoading(true);
+            if(textMessage.length === 0){
+                setTextMessage("");
+                setIsLoading(false);
+                return;
+            }
             let text_message = textMessage;
             if(isTranslate){
                 const response = await axios.request(options);
