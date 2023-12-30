@@ -17,10 +17,8 @@ export async function POST (request) {
             return new NextResponse("Unauthorized access" , {status : 401});
         }
 
-        console.log(emailToAdd)
-
         if (emailToAdd === session.user.email){
-            return new NextResponse("You cannot add yourself as a friend" , {status : 400});
+            return new NextResponse("Nope, can't add yourself!" , {status : 400});
         }
         
 
@@ -35,7 +33,7 @@ export async function POST (request) {
         const data = await restResponse.json();
         
         if(!data.result){
-            return new NextResponse("Account does not exist" , {status : 404});
+            return new NextResponse("Hmm, looks like that friend hasn't found their way here yet. Want to search for someone else?" , {status : 404});
         }
         
 
@@ -50,13 +48,13 @@ export async function POST (request) {
         const isAlreadyAdded = await fetchRedis('sismember', `user:${idToAdded}:incoming_friend_request`, currentUserId);
 
         if(isAlreadyAdded){
-            return new NextResponse("User has been already added", {status : 400});
+            return new NextResponse("Oopsie! You've already sent a friend request to this user.", {status : 400});
         }
 
         const isAlreadyFriend = await fetchRedis('sismember', `user:${currentUserId}:friends`, idToAdded);
 
         if(isAlreadyFriend){
-            return new NextResponse("User is already friend", {status : 400});
+            return new NextResponse("You're already in each other's friend lists. Go ahead and message them!", {status : 400});
         }
 
         // send valid freind request
@@ -76,7 +74,7 @@ export async function POST (request) {
 
         return NextResponse.json({
             success : true,
-            message : "Friend request is sent"
+            message : "Friend request sent! We'll let you know when they respond."
         });
         
     } catch (error) {
