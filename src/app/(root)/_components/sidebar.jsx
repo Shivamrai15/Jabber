@@ -23,6 +23,7 @@ export const Sidebar = ({
     const [unseenMessages, setUnseenMessages] = useState([]);
     const {last_message, setInitialLastMessages, setLastMessages} = useLastMessage();
 
+
     useEffect(()=>{
            setInitialLastMessages(lastMessages);
     }, [lastMessages]);
@@ -31,9 +32,23 @@ export const Sidebar = ({
         pusherClient.subscribe(toPusherKey(`user:${sessionId}:chats`));
         pusherClient.subscribe(toPusherKey(`user:${sessionId}:friends`));
         pusherClient.subscribe(toPusherKey(`user:${sessionId}:accept_friend_request`));
+        pusherClient.subscribe(toPusherKey(`delete:${sessionId}:delete-single-message`));
 
         const newfriendHandler = ()=>{
             router.refresh();
+        }
+
+        const deleteMessages = (deletedMessage) => {
+            console.log("This is working Shivam")
+            try {
+                const conversationId = conversationIdGenerator(sessionId, deletedMessage.senderId);
+                const isLastMessage = last_message[conversationId]?.id === deletedMessage.id;
+                if (isLastMessage){
+                    setLastMessages(deletedMessage, conversationId);
+                }
+            } catch (error) {
+                console.error(error);
+            }
         }
 
         const chatHandler = (message) => {
@@ -48,15 +63,18 @@ export const Sidebar = ({
         pusherClient.bind('new_message', chatHandler);
         pusherClient.bind('new_friend', newfriendHandler);
         pusherClient.bind('accept_friend_request', newfriendHandler);
+        pusherClient.bind('delete_single_message', deleteMessages);
 
 
         return () =>{
             pusherClient.unbind('new_message', chatHandler);
             pusherClient.unbind('new_friend', newfriendHandler);
             pusherClient.unbind('accept_friend_request', newfriendHandler);
+            pusherClient.unbind('delete_single_message', deleteMessages);
             pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:chats`));
             pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:friends`));
             pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:accept_friend_request`));
+            pusherClient.unsubscribe(toPusherKey(`delete:${sessionId}:delete-single-message`));
         }
     }, [pathname]);
 

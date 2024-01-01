@@ -9,10 +9,6 @@ import { toPusherKey } from "@/lib/utils";
 export async function PATCH ( request ) {
     try {
         const {conversationId, data} = await request.json();
-
-        console.log(typeof data.timestamp);
-        console.log(data.timestamp);
-
         
         const session = await getServerSession(authOptions);
 
@@ -29,6 +25,12 @@ export async function PATCH ( request ) {
         const deletedMessage = {
             ...data, text : "⊘ This message was deleted"
         }
+
+        await pusherServer.trigger(
+            toPusherKey(`delete:${userId}:delete-single-message`),
+            "delete_single_message",
+            deletedMessage
+        );
 
         await pusherServer.trigger(
             toPusherKey(`chat:${conversationId}:delete-message`),
