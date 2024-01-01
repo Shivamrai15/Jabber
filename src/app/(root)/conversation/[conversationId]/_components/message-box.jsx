@@ -5,6 +5,8 @@ import { format } from "date-fns";
 import { ImageTypeMessage } from "./image-type-message";
 import { DocumenTypeMessage } from "./document-type-message";
 import { RecordingTypeMessage } from "./recording-type-message";
+import { toast } from "sonner";
+import axios from "axios";
 
 import {
     ContextMenu,
@@ -24,7 +26,8 @@ import {
 export const MessageBox = ({
     data,
     isCurrentUser,
-    hasNextMessageFromSameUser
+    hasNextMessageFromSameUser,
+    conversationId
 }) => {
 
     const formatTimeStamp = (timestamp)=>{
@@ -39,7 +42,27 @@ export const MessageBox = ({
 
     const copyMessage = ()=>{
         navigator.clipboard.writeText(data.text);
-    } 
+    }
+
+    const onDeleteMessage = async () => {
+        try {
+            if(isCurrentUser){
+                await axios.patch(
+                    "/api/delete-message",
+                    {
+                        conversationId,
+                        data
+                    }
+                );
+                toast.success("Message has been deleted!");
+            } else {
+                toast.warning("Oops! Looks like you can only delete your own messages here.");
+            }
+        } catch (error) {
+            console.log(error.message);
+            toast.error(error.message);
+        }
+    }
 
     return (
         <ContextMenu>
@@ -101,35 +124,44 @@ export const MessageBox = ({
             <ContextMenuContent align = "end" className = "w-52 bg-neutral-900">
                 {
                     
-                    data.type === "text" &&
+                    data.type === "text" && data.text !== "⊘ This message was deleted" &&
                     <ContextMenuItem onClick = {copyMessage}>
                         <Copy className="h-5 w-5 ml-2 mr-4"/>
                         Copy
                     </ContextMenuItem>
                 }
-                <ContextMenuItem>
-                    <Forward className="h-5 w-5 ml-2 mr-4"/>
-                    Forward
-                </ContextMenuItem>
                 {
-                    isCurrentUser && 
+                    data.text !== "⊘ This message was deleted" &&
+                    <ContextMenuItem>
+                        <Forward className="h-5 w-5 ml-2 mr-4"/>
+                        Forward
+                    </ContextMenuItem>
+                }
+                {
+                    isCurrentUser && data.text !== "⊘ This message was deleted" &&
                     <ContextMenuItem>
                         <Pencil className="h-5 w-5 ml-2 mr-4"/>
                         Edit
                     </ContextMenuItem>
                 }
                 {
-                    !isCurrentUser && data.type === "text" &&
+                    !isCurrentUser && data.type === "text" && data.text !== "⊘ This message was deleted" &&
                     <ContextMenuItem>
                         <Atom className="h-5 w-5 ml-2 mr-4"/>
                         Ask to AI
                     </ContextMenuItem>
                 }
                 {
-                    isCurrentUser && 
-                    <ContextMenuItem>
+                    isCurrentUser && data.text !== "⊘ This message was deleted" &&
+                    <ContextMenuItem onClick = {onDeleteMessage}>
                         <Trash2 className="h-5 w-5 ml-2 mr-4"/>
                         Delete
+                    </ContextMenuItem>
+                }
+                {
+                    data.text === "⊘ This message was deleted" &&
+                    <ContextMenuItem className = "text-xs">
+                        No options are available for deleted messages
                     </ContextMenuItem>
                 }
             </ContextMenuContent>

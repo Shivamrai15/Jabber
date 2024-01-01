@@ -15,7 +15,7 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
     const scrollRef = useRef(null);
     const [messages, setMessages] = useState(initialMessages);
     const [isTyping, setIsTyping] = useState(false);
-    const { setLastMessages } = useLastMessage()
+    const { last_message, setLastMessages } = useLastMessage();
 
     useEffect(()=>{
         scrollRef?.current?.scrollIntoView();
@@ -34,6 +34,10 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
             toPusherKey(`chat:${chatId}:typing`)
         )
 
+        pusherClient.subscribe(
+            toPusherKey(`chat:${chatId}:delete-message`)
+        );
+
         const messageHandler = (message) =>{
             setIsTyping(false);
             setMessages((prev)=>[...prev, message]);
@@ -43,6 +47,31 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
         const deleteMessages = ()=>{
             setMessages([]);
             setLastMessages('', chatId);
+        }
+
+        const deleteSingeMesaage = (deletedMessage) => {
+            try {
+                const isLastMessage = last_message[chatId]?.id === deletedMessage.id;
+                if ( isLastMessage ) {
+                    setLastMessages(deletedMessage, chatId);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+            try {
+                setMessages((prev)=>{
+                    return prev.map((message)=>{
+                        if (message.id === deletedMessage.id){
+                            return {
+                                ...message, ...deletedMessage
+                            }
+                        }
+                        return message;
+                    });
+                });
+            } catch (error) {
+                console.error(error);
+            }
         }
 
         const typingStatus = ({
@@ -71,6 +100,11 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
             typingStatus
         );
 
+        pusherClient.bind(
+            "delete_message",
+            deleteSingeMesaage
+        );
+
         return () => {
             pusherClient.unsubscribe(
                 toPusherKey(`chat:${chatId}`)
@@ -80,7 +114,10 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
             );
             pusherClient.unsubscribe(
                 toPusherKey(`chat:${chatId}:typing`)
-            )
+            );
+            pusherClient.unsubscribe(
+                toPusherKey(`chat:${chatId}:delete-message`)
+            );
             pusherClient.unbind(
                 "incoming_message",
                 messageHandler
@@ -92,6 +129,10 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
             pusherClient.unbind(
                 "typing_message",
                 typingStatus
+            );
+            pusherClient.unbind(
+                "delete_message",
+                deleteSingeMesaage
             );
     
         }
@@ -122,6 +163,7 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
                 return <MessageBox
                     key = {`${message.id}-${message.timestamp}`}
                     data = {message}
+                    conversationId = {chatId}
                     isCurrentUser = {isCurrentUser}
                     hasNextMessageFromSameUser = {hasNextMessageFromSameUser}
                 />
