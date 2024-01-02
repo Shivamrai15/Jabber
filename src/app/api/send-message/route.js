@@ -26,13 +26,6 @@ export async function POST (request) {
             return new NextResponse("Unauthorized access", {status:401});
         }
 
-        const friendList = await fetchRedis("smembers", `user:${sessionId}:friends`)
-        const isFriend = friendList.includes(conversationFriendId);
-
-        if(!isFriend){
-            return new NextResponse("Unauthorized access", {status:401});
-        }
-
         const timestamp = Date.now();
 
         const message = {
@@ -54,9 +47,8 @@ export async function POST (request) {
             toPusherKey(`user:${conversationFriendId}:chats`),
             'new_message',
             {
-                ...message,
-                senderImage : conversationFriend.image,
-                senderName : conversationFriend.name
+                message, 
+                conversationId
             }
         );
 

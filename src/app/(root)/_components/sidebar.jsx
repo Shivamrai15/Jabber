@@ -51,12 +51,12 @@ export const Sidebar = ({
             }
         }
 
-        const chatHandler = (message) => {
-            const shouldNotify = pathname !== `/conversation/${conversationIdGenerator(sessionId, message.senderId)}`;
+        const chatHandler = ({message, conversationId}) => {
+            const shouldNotify = pathname !== `/conversation/${conversationId}`;
+            setLastMessages(message, conversationId);
             if(!shouldNotify){
                 return;
             }
-            setLastMessages(message, conversationIdGenerator(sessionId, message.senderId));
             setUnseenMessages((prev)=>[...prev, message]);
         }
 

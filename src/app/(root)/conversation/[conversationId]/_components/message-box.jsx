@@ -18,7 +18,6 @@ import {
 import {
     Copy,
     Trash2,
-    Pencil,
     Atom,
     Forward,
 } from "lucide-react";
@@ -83,11 +82,12 @@ export const MessageBox = ({
                             )}
                         >
                             <span className={cn(
-                                "px-4 py-2 rounded-3xl inline-block cursor-default",
+                                "px-4 py-2 rounded-3xl inline-block cursor-default select-none",
                                 !containsOnlyEmojis(data.text) && isCurrentUser ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white" : "bg-[#1b1b1b] text-white", 
                                 !hasNextMessageFromSameUser && isCurrentUser && "rounded-br-none",
                                 !hasNextMessageFromSameUser && !isCurrentUser && "rounded-bl-none",
-                                data.type === "text" && containsOnlyEmojis(data.text) && "bg-transparent text-5xl text-center"
+                                data.type === "text" && containsOnlyEmojis(data.text) && "bg-transparent text-5xl text-center",
+                                data.type === "text" && data.text === "⊘ This message was deleted" && "text-xs py-4",
                             )}>
                                 {data.type === "text" && (data.text + ' ')}
                                 {data.type === "image" && (
@@ -135,13 +135,6 @@ export const MessageBox = ({
                     <ContextMenuItem>
                         <Forward className="h-5 w-5 ml-2 mr-4"/>
                         Forward
-                    </ContextMenuItem>
-                }
-                {
-                    isCurrentUser && data.text !== "⊘ This message was deleted" &&
-                    <ContextMenuItem>
-                        <Pencil className="h-5 w-5 ml-2 mr-4"/>
-                        Edit
                     </ContextMenuItem>
                 }
                 {
