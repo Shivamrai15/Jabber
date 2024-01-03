@@ -22,7 +22,7 @@ export const UserProfileModal = ()=>{
 
     return (
         <Dialog open = {isOpen} onOpenChange={onClose}>
-            <DialogContent className = "w-72 md:w-96 dark:bg-neutral-900">
+            <DialogContent className = "w-80 md:w-96 dark:bg-neutral-900">
                 <DialogHeader>
                     <DialogTitle className = "flex items-center font-semibold gap-x-2">
                         <Info className="h-5 w-5"/>
