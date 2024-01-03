@@ -1,7 +1,6 @@
-
 import { SideBarSheet } from "@/components/sidebar";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { ChatSettings } from "./chat-settings";
+import { UserProfile } from "@/components/user-profile";
 
 const ChatHeader = ({conversationFriend, conversationId}) => {
 
@@ -11,9 +10,7 @@ const ChatHeader = ({conversationFriend, conversationId}) => {
                 <div className="md:hidden">
                     <SideBarSheet/>
                 </div>
-                <Avatar className = "h-10 w-10">
-                    <AvatarImage src = {conversationFriend.image}/>
-                </Avatar>
+                <UserProfile user={conversationFriend}/>
                 <div className="flex flex-col w-full truncate cursor-default">
                     <p className="text-zinc-200 font-medium text-sm">{conversationFriend.name}</p>
                     <p className="text-zinc-500 text-xs">{conversationFriend.email}</p>
