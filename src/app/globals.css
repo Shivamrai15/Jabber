@@ -23,6 +23,19 @@ body,
   }
 }
 
+@media screen and (min-width : 768px) {
+  .modal-scroll::-webkit-scrollbar{
+    background: #00000000;
+  }
+  
+  .modal-scroll::-webkit-scrollbar-thumb{
+    border-radius: 1rem;
+    border: 6px solid transparent;
+    background: #5f5f5f;
+    background-clip: content-box;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

@@ -16,7 +16,6 @@ export async function POST (request) {
             conversationId,
             sessionId,
             conversationFriendId,
-            conversationFriend,
             isEdited
         } = await request.json();
 

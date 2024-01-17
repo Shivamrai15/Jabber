@@ -166,6 +166,7 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
                     conversationId = {chatId}
                     isCurrentUser = {isCurrentUser}
                     hasNextMessageFromSameUser = {hasNextMessageFromSameUser}
+                    sessionId = {sessionId}
                 />
             })}
             {

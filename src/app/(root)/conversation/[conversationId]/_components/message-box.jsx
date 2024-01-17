@@ -21,13 +21,17 @@ import {
     Atom,
     Forward,
 } from "lucide-react";
+import { useForwardMessageModal } from "@/hooks/use-forward-message-modal";
 
 export const MessageBox = ({
     data,
     isCurrentUser,
     hasNextMessageFromSameUser,
-    conversationId
+    conversationId,
+    sessionId
 }) => {
+
+    const { onOpen, setForwardMessage } = useForwardMessageModal();
 
     const formatTimeStamp = (timestamp)=>{
         if (!timestamp) return '';
@@ -63,6 +67,12 @@ export const MessageBox = ({
         }
     }
 
+    const handleForwardMessage = () => {
+        const message = { ...data, senderId : sessionId}
+        setForwardMessage(message);
+        onOpen();
+    }
+
     return (
         <ContextMenu>
             <ContextMenuTrigger>
@@ -87,9 +97,16 @@ export const MessageBox = ({
                                 !hasNextMessageFromSameUser && isCurrentUser && "rounded-br-none",
                                 !hasNextMessageFromSameUser && !isCurrentUser && "rounded-bl-none",
                                 data.type === "text" && containsOnlyEmojis(data.text) && "bg-transparent text-5xl text-center",
-                                data.type === "text" && data.text === "⊘ This message was deleted" && "text-xs py-4",
                             )}>
-                                {data.type === "text" && (data.text + ' ')}
+                                {data.type === "text" && (
+                                    <span
+                                        className={cn(
+                                            data.type === "text" && data.text === "⊘ This message was deleted" && "text-sm italic py-3 mr-2"
+                                        )}
+                                    >
+                                        {(data.text + ' ')}
+                                    </span>
+                                )}
                                 {data.type === "image" && (
                                     <ImageTypeMessage
                                         data={JSON.parse(data.text)}
@@ -132,7 +149,7 @@ export const MessageBox = ({
                 }
                 {
                     data.text !== "⊘ This message was deleted" &&
-                    <ContextMenuItem>
+                    <ContextMenuItem onClick = {handleForwardMessage}>
                         <Forward className="h-5 w-5 ml-2 mr-4"/>
                         Forward
                     </ContextMenuItem>

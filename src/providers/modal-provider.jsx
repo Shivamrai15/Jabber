@@ -1,4 +1,5 @@
 "use client";
+import { ForwardMessageModal } from "@/components/modals/forward-message-modal";
 import { UploadDocumentModal } from "@/components/modals/upload-document-modal";
 import { UploadImageModal } from "@/components/modals/upload-image-modal";
 import { UserProfileModal } from "@/components/modals/user-profile-modal";
@@ -23,6 +24,7 @@ export const ModalProvider = () => {
             <UploadDocumentModal/>
             <RecordModal/>
             <UserProfileModal/>
+            <ForwardMessageModal/>
         </>
     );
 }

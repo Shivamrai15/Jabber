@@ -9,6 +9,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { conversationIdGenerator, toPusherKey } from "@/lib/utils";
 import { pusherClient } from "@/lib/pusher";
 import { useLastMessage } from "@/hooks/use-last-message";
+import { useFriends } from "@/hooks/use-friends";
 
 export const Sidebar = ({
     initialUnseenRequestCount,
@@ -22,11 +23,16 @@ export const Sidebar = ({
 
     const [unseenMessages, setUnseenMessages] = useState([]);
     const {last_message, setInitialLastMessages, setLastMessages} = useLastMessage();
+    const { setFriends } = useFriends();
 
 
     useEffect(()=>{
            setInitialLastMessages(lastMessages);
     }, [lastMessages]);
+
+    useEffect(()=>{
+        setFriends(friends)
+    }, [friends, sessionId]);
 
     useEffect(()=>{
         pusherClient.subscribe(toPusherKey(`user:${sessionId}:chats`));
@@ -39,7 +45,6 @@ export const Sidebar = ({
         }
 
         const deleteMessages = (deletedMessage) => {
-            console.log("This is working Shivam")
             try {
                 const conversationId = conversationIdGenerator(sessionId, deletedMessage.senderId);
                 const isLastMessage = last_message[conversationId]?.id === deletedMessage.id;
