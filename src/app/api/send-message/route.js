@@ -11,12 +11,14 @@ export async function POST (request) {
     try {
 
         const {
+            id,
             text,
             type,
+            isReceived,
             conversationId,
             sessionId,
             conversationFriendId,
-            isEdited
+            timestamp
         } = await request.json();
 
         const session = await getServerSession(authOptions);
@@ -25,15 +27,13 @@ export async function POST (request) {
             return new NextResponse("Unauthorized access", {status:401});
         }
 
-        const timestamp = Date.now();
-
         const message = {
-            id : nanoid(),
+            id,
             senderId : sessionId,
             text,
             type,
             timestamp,
-            isEdited
+            isReceived : true
         };
 
         await pusherServer.trigger(

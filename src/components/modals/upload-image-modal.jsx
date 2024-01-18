@@ -17,6 +17,7 @@ import { useImageModal } from "@/hooks/use-image-modal";
 import { Button } from "../ui/button";
 import axios from "axios";
 import { Input } from "../ui/input";
+import { nanoid } from "nanoid";
 
 
 export const UploadImageModal = () => {
@@ -65,12 +66,14 @@ export const UploadImageModal = () => {
                 });
     
                 await axios.post("/api/send-message", {
+                    id : nanoid(),
                     text : msg_data,
                     type : "image",
                     conversationId : data.conversationId,
                     sessionId : data.sessionId,
                     conversationFriendId : data.conversationFriendId,
-                    conversationFriend : data.conversationFriend
+                    isReceived : false,
+                    timestamp : Date.now()
                 });
                 handleOnCancel();
             }

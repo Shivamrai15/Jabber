@@ -20,6 +20,7 @@ import {
     Trash2,
     Atom,
     Forward,
+    SendHorizontal
 } from "lucide-react";
 import { useForwardMessageModal } from "@/hooks/use-forward-message-modal";
 
@@ -91,49 +92,54 @@ export const MessageBox = ({
                                 !isCurrentUser && "order-2 items-start"
                             )}
                         >
-                            <span className={cn(
-                                "px-4 py-2 rounded-3xl inline-block cursor-default select-none",
-                                !containsOnlyEmojis(data.text) && isCurrentUser ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white" : "bg-[#1b1b1b] text-white", 
-                                !hasNextMessageFromSameUser && isCurrentUser && "rounded-br-none",
-                                !hasNextMessageFromSameUser && !isCurrentUser && "rounded-bl-none",
-                                data.type === "text" && containsOnlyEmojis(data.text) && "bg-transparent text-5xl text-center",
-                            )}>
-                                {data.type === "text" && (
-                                    <span
-                                        className={cn(
-                                            data.type === "text" && data.text === "⊘ This message was deleted" && "text-sm italic py-3 mr-2"
+                            <div className = "flex flex-row items-end gap-x-2 transition-all duration-200">
+                                <span className={cn(
+                                    "px-4 py-2 rounded-3xl inline-block cursor-default select-none",
+                                    !containsOnlyEmojis(data.text) && isCurrentUser ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white" : "bg-[#1b1b1b] text-white", 
+                                    !hasNextMessageFromSameUser && isCurrentUser && "rounded-br-none",
+                                    !hasNextMessageFromSameUser && !isCurrentUser && "rounded-bl-none",
+                                    data.type === "text" && containsOnlyEmojis(data.text) && "bg-transparent text-5xl text-center",
+                                )}>
+                                    {data.type === "text" && (
+                                        <span
+                                            className={cn(
+                                                data.type === "text" && data.text === "⊘ This message was deleted" && "text-sm italic py-3 mr-2"
+                                            )}
+                                        >
+                                            {(data.text + ' ')}
+                                        </span>
+                                    )}
+                                    {data.type === "image" && (
+                                        <ImageTypeMessage
+                                            data={JSON.parse(data.text)}
+                                        />
+                                    )}
+                                    { data.type === "document" && (
+                                        <DocumenTypeMessage
+                                            data = {JSON.parse(data.text)}
+                                        />
+                                    )}
+                                    {
+                                        data.type === "recording" && (
+                                            <RecordingTypeMessage
+                                                url = {data.text}
+                                                isCurrentUser = {isCurrentUser}
+                                            />
+                                        )
+                                    }
+                                    { !containsOnlyEmojis(data.text) && <span
+                                        className = {cn(
+                                            "text-[10px] text-zinc-200 whitespace-nowrap",
+                                            data.type === "text" && "ml-auto"
                                         )}
                                     >
-                                        {(data.text + ' ')}
-                                    </span>
-                                )}
-                                {data.type === "image" && (
-                                    <ImageTypeMessage
-                                        data={JSON.parse(data.text)}
-                                    />
-                                )}
-                                { data.type === "document" && (
-                                    <DocumenTypeMessage
-                                        data = {JSON.parse(data.text)}
-                                    />
-                                )}
+                                        {formatTimeStamp(data.timestamp)}
+                                    </span>}
+                                </span>
                                 {
-                                    data.type === "recording" && (
-                                        <RecordingTypeMessage
-                                            url = {data.text}
-                                            isCurrentUser = {isCurrentUser}
-                                        />
-                                    )
+                                    !data.isReceived && <SendHorizontal className="h-3 w-3 text-zinc-400" />
                                 }
-                                { !containsOnlyEmojis(data.text) && <span
-                                    className = {cn(
-                                        "text-[10px] text-zinc-200 whitespace-nowrap",
-                                        data.type === "text" && "ml-auto"
-                                    )}
-                                >
-                                    {formatTimeStamp(data.timestamp)}
-                                </span>}
-                            </span>
+                            </div>
                         </div>
                     </div>
                 </div>

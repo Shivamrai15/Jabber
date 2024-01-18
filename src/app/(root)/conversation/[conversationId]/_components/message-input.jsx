@@ -8,13 +8,15 @@ import { Media } from "./media";
 import { IconPicker } from "./emoji-picker";
 import { useRecordModal } from "@/hooks/use-recorder-modal";
 import { useTranslate } from "@/hooks/use-translate";
+import { nanoid } from "nanoid";
 
 
 export const MessageInput = ({
     sessionId,
     conversationFriendId,
     conversationId,
-    conversationFriend
+    conversationFriend,
+    setMessages
 }) => {
 
     const [textMessage, setTextMessage] = useState("");
@@ -71,15 +73,27 @@ export const MessageInput = ({
             }
             setTextMessage("");
             setIsLoading(false);
-            await axios.post("/api/send-message", {
+
+            const initialData = {
+                id : nanoid(),
                 text : text_message,
                 type : "text",
-                isEdited : false,
+                timestamp : Date.now(),
+                isReceived : false,
+            }
+
+            setMessages((prev)=>[...prev, {
+                ...initialData,
+                senderId : sessionId,
+            }]);
+
+            await axios.post("/api/send-message", {
+                ...initialData,
                 conversationId : conversationId,
                 sessionId,
                 conversationFriendId,
-                conversationFriend
             });
+            
         } catch (error) {
             toast.error("Something went wrong!");
         }

@@ -8,12 +8,11 @@ import { useLastMessage } from "@/hooks/use-last-message";
 
 export const revalidate = 0;
 
-export const Messages = ({initialMessages , sessionId, chatId}) => {
+export const Messages = ({messages, setMessages , sessionId, chatId}) => {
 
     const router = useRouter();
     const pathname = usePathname();
     const scrollRef = useRef(null);
-    const [messages, setMessages] = useState(initialMessages);
     const [isTyping, setIsTyping] = useState(false);
     const { last_message, setLastMessages } = useLastMessage();
 
@@ -40,7 +39,16 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
 
         const messageHandler = (message) =>{
             setIsTyping(false);
-            setMessages((prev)=>[...prev, message]);
+            if (message.senderId === sessionId  && message.type === "text"){
+                setMessages((prev)=>prev.map((msg)=>{
+                    if (msg.id === message.id){
+                        return { ...msg, ...message}
+                    }
+                    return msg;
+                }));
+            }else{
+                setMessages((prev)=>[...prev, message]);
+            }
             setLastMessages(message, chatId);
         }
 
@@ -63,7 +71,7 @@ export const Messages = ({initialMessages , sessionId, chatId}) => {
                     return prev.map((message)=>{
                         if (message.id === deletedMessage.id){
                             return {
-                                ...message, ...deletedMessage
+                                ...message, ...deletedMessage, isReceived : true
                             }
                         }
                         return message;

@@ -18,6 +18,7 @@ import { conversationIdGenerator } from "@/lib/utils";
 import { toast } from "sonner";
 import { Loader } from "lucide-react";
 import { useLastMessage } from "@/hooks/use-last-message";
+import { nanoid } from "nanoid";
 
 export const ForwardMessageModal = () => {
 
@@ -42,13 +43,6 @@ export const ForwardMessageModal = () => {
         try {
 
             setIsLoading(true);
-
-            const frwdMsg = {
-                text : forwardMessage.text,
-                type : forwardMessage.type,
-                sessionId : forwardMessage.senderId,
-                isEdited : false
-            }
     
             const request_ids = [];
     
@@ -63,9 +57,14 @@ export const ForwardMessageModal = () => {
             const response = await Promise.all(
                 request_ids.map( async(friendId)=>{
                     const data = {
-                        ...frwdMsg,
+                        id : nanoid(),
+                        text : forwardMessage.text,
+                        type : forwardMessage.type,
+                        sessionId : forwardMessage.senderId,
                         conversationId : conversationIdGenerator(friendId, forwardMessage.senderId),
-                        conversationFriendId : friendId
+                        conversationFriendId : friendId,
+                        isReceived : false,
+                        timestamp : Date.now()
                     }
                     await axios.post("/api/send-message", data);
                     return data;
@@ -160,23 +159,3 @@ export const ForwardMessageModal = () => {
         </Dialog>
     )
 }
-
-// 
-// id
-// : 
-// "L_krhmKB9Ti7A-kBHzS6O"
-// isEdited
-// : 
-// false
-// senderId
-// : 
-// "530de44a-b23d-4b33-811b-855231920b34"
-// text
-// : 
-// "brother"
-// timestamp
-// : 
-// 1705479341170
-// type
-// : 
-// "text"

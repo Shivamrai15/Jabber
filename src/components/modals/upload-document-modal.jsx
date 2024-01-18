@@ -17,6 +17,7 @@ import { Button } from "../ui/button";
 import axios from "axios";
 import { useDocumentModal } from "@/hooks/use-document-modal";
 import { LuFileCheck } from "react-icons/lu";
+import { nanoid } from "nanoid";
 
 
 export const UploadDocumentModal = () => {
@@ -63,12 +64,14 @@ export const UploadDocumentModal = () => {
         try {
             if (responseUrl !== null){
                 await axios.post("/api/send-message", {
+                    id : nanoid(),
                     text : responseUrl,
                     type : "document",
                     conversationId : data.conversationId,
                     sessionId : data.sessionId,
                     conversationFriendId : data.conversationFriendId,
-                    conversationFriend : data.conversationFriend
+                    isReceived : false,
+                    timestamp : Date.now()
                 });
                 handleOnCancel();
             }

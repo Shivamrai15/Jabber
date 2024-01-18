@@ -1,13 +1,11 @@
-
 import { getCurrentUserId } from "@/helpers/getCurrentUserId";
 import { fetchRedis } from "@/helpers/redis";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { getServerSession } from "next-auth";
-import { Messages } from "./_components/messages";
 import { redirect } from "next/navigation";
-import { MessageInput } from "./_components/message-input";
 import ChatHeader from "./_components/chat-header";
+import { PageLayout } from "./_components/page-layout";
 
 export const revalidate = 0;
 
@@ -54,17 +52,13 @@ const ConversationPage = async({params}) => {
                 conversationFriend={conversationFriend}
                 conversationId = {conversationId}
             />
-            <Messages
+            <PageLayout
                 initialMessages={initialMessages}
-                sessionId={currentUserId}
-                chatId={conversationId}
-                userName = {session?.user?.name}
-            />
-            <MessageInput 
-                sessionId = {currentUserId}
-                conversationFriendId = {conversationFriendId}
-                conversationId = {conversationId}
-                conversationFriend = {conversationFriend}
+                conversationFriend={conversationFriend}
+                conversationFriendId={conversationFriendId}
+                conversationId={conversationId}
+                currentUserId={currentUserId}
+                userName={session?.user?.name}
             />
         </div>
     )
