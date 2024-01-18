@@ -33,8 +33,10 @@ export const ForwardMessageModal = () => {
 
     const [selectedIds, setSelectedIds] = useState(()=>{
         const data = {}
-        for (let i=0; i<friends.length; i++){
-            data[friends[i].id] = false
+        if( friends){
+            for (let i=0; i<friends.length; i++){
+                data[friends[i].id] = false
+            }
         }
         return data; 
     });
