@@ -1,8 +1,7 @@
 "use client";
 
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useSession } from "next-auth/react";
-import { Settings } from "./settings";
+import { SettingsIcon } from "lucide-react";
 import { Bell, UserSquare } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
@@ -48,63 +47,34 @@ const SidebarFooter = ({
 
     return (
         <>
-            <div className="grid grid-cols-3 gap-x-1 px-3 md:px-5 mt-auto mb-4 place-items-center md:hidden">
+            <div className="grid grid-cols-3 gap-x-1 px-3 md:px-5 mt-auto mb-4 place-items-center">
                 <Link
                     href="/notifications"
-                    className="flex justify-center px-4 py-2 rounded-md items-center bg-neutral-800 cursor-default w-full"
+                    className="flex justify-center px-4 py-2 rounded-md items-center bg-neutral-800 cursor-default w-full md:cursor-pointer"
                 >
-                    <Bell className="h-5 w-5 text-white"/>
-                </Link>
-                <Link
-                    href="/add"
-                    className="flex justify-center px-4 py-2 rounded-md items-center bg-neutral-800 cursor-default w-full"
-                >
-                    <UserSquare className="h-5 w-5 text-white"/>
-                </Link>
-                <div
-                    className="flex justify-center px-4 py-2 rounded-md items-center bg-neutral-800 cursor-default w-full"
-                >
-                    <Settings user = {session?.user}/>
-                </div>
-
-            </div>
-            <div className="hidden md:flex md:flex-col gap-y-2 px-3 md:px-5 mt-auto mb-5">
-                    <Link
-                        href="/notifications"
-                        className="flex justify-between px-4 py-2 rounded-md items-center bg-neutral-800 hover:bg-neutral-800/50"
-                    >
-                        <Bell className="h-6 w-6 text-white"/>
-                        <div className="text-zinc-300 text-sm flex items-center">
-                            Notifications
-                            {unseenNotificationCount > 0 && (
+                    <div className="w-fit h-fit flex justify-center items-center">
+                        <Bell className="h-5 w-5 text-white"/>
+                        {unseenNotificationCount > 0 && (
                                 <Badge className="bg-green-600 ml-2">
                                     {unseenNotificationCount}
                                 </Badge>
-                            )}
-                        </div>
-                    </Link>
-                    <Link
-                        href="/add"
-                        className="flex justify-between px-4 py-2 rounded-md items-center bg-neutral-800 hover:bg-neutral-800/50"
-                    >
-                        <UserSquare className="h-6 w-6 text-white"/>
-                        <span className="text-zinc-300 text-sm">
-                            Add friend
-                        </span>
-                    </Link>
-                    <div
-                        className="flex justify-between px-4 py-2 rounded-md items-center bg-neutral-800 hover:bg-neutral-800/50"
-                    >
-                        <Avatar className = "h-6 w-6">
-                            <AvatarImage
-                                src = {session?.user?.image}
-                            />
-                        </Avatar>
-                        <div className="flex items-center gap-x-4">
-                            <p className="text-sm font-semibold text-zinc-300">{session?.user?.name}</p>
-                            <Settings user = {session?.user}/>
-                        </div>
+                        )}
                     </div>
+
+                </Link>
+                <Link
+                    href="/add"
+                    className="flex justify-center px-4 py-2 rounded-md items-center bg-neutral-800 cursor-default w-full md:cursor-pointer"
+                >
+                    <UserSquare className="h-5 w-5 text-white"/>
+                </Link>
+                <Link
+                    href="/settings"
+                    className="flex justify-center px-4 py-2 rounded-md items-center bg-neutral-800 cursor-default w-full md:cursor-pointer"
+                >
+                    <SettingsIcon className = "h-5 w-5 text-zinc-300" />
+                </Link>
+
             </div>
         </>
     )

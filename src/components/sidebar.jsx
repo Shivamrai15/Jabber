@@ -17,7 +17,7 @@ export const SideBarSheet = () => {
             </SheetTrigger>
             <SheetContent
                 side = "left"
-                className = "bg-neutral-900 w-full h-full"
+                className = "bg-neutral-900 w-full h-full pt-6 pb-1 px-2"
             >
                 <SideBarComponent/>
             </SheetContent>
