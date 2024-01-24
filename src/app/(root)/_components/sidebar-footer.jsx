@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { SettingsIcon } from "lucide-react";
+import { Settings } from "./settings";
 import { Bell, UserSquare } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
@@ -68,12 +68,11 @@ const SidebarFooter = ({
                 >
                     <UserSquare className="h-5 w-5 text-white"/>
                 </Link>
-                <Link
-                    href="/settings"
-                    className="flex justify-center px-4 py-2 rounded-md items-center bg-neutral-800 cursor-default w-full md:cursor-pointer"
+                <div
+                    className="flex justify-center px-4 py-2 rounded-md items-center bg-neutral-800 cursor-default w-full"
                 >
-                    <SettingsIcon className = "h-5 w-5 text-zinc-300" />
-                </Link>
+                    <Settings user = {session?.user}/>
+                </div>
 
             </div>
         </>
