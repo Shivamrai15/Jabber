@@ -23,7 +23,7 @@ export async function PATCH ( request ) {
         }
 
         const deletedMessage = {
-            ...data, text : "⊘ This message was deleted"
+            ...data, text : "⊘ This message was deleted", type : "text"
         }
 
         await pusherServer.trigger(

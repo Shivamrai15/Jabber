@@ -21,7 +21,7 @@ import { useTranslate } from "@/hooks/use-translate";
 import {toast} from "sonner";
 import axios from "axios";
 import { signOut } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DeleteMessagesDialog } from "@/components/modals/delete-messages-dialog";
 
 export const ChatSettings = ({
@@ -37,6 +37,7 @@ export const ChatSettings = ({
     const [isLogout, setIsLogout] = useState(false);
     const [ isOpen, setOpen ] = useState(false);
     const [ loading, setLoading ] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
     const handleDeleteChats = async() =>{
         try {
@@ -67,6 +68,14 @@ export const ChatSettings = ({
         }
     }
 
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) {
+        return null;
+    }
+
     return (
         <>
             <DeleteMessagesDialog
@@ -86,8 +95,8 @@ export const ChatSettings = ({
                     <DropdownMenuItem>
                         <div className="w-full flex justify-between items-center">
                             <div className="flex items-center gap-x-4">
-                                <Languages/>
-                                <Label htmlFor="translation-mode">Translate to english</Label>
+                                <Languages className="h-5 w-5"/>
+                                <Label htmlFor="translation-mode text-sm">Translate to english</Label>
                             </div>
                             <Switch
                                 id = "translation-mode"
@@ -98,20 +107,20 @@ export const ChatSettings = ({
                     </DropdownMenuItem>
                     <DropdownMenuItem
                         onClick = {() => setOpen(true)} 
-                        className = "flex w-full justify-between items-center"
+                        className = "flex w-full items-center text-sm text-red-500 group"
                     >
-                        <Trash2/>
-                        <span>
+                        <Trash2 className="text-red-500 h-5 w-5 mr-4" />
+                        <span className="group-hover:text-red-600">
                             Delete Chats
                         </span>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator/>
                     <DropdownMenuItem
-                        className = "flex w-full justify-between items-center"
+                        className = "flex w-full items-center text-sm"
                         disabled = {isLogout}
                         onClick = {onLogout}
                     >
-                        <LogOut/>
+                        <LogOut className="h-5 w-5 mr-4"/>
                         <span>
                             Logout
                         </span>

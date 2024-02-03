@@ -4,11 +4,11 @@ import { useState } from "react";
 import { FaPlay, FaPause } from "react-icons/fa";
 import WaveSurfer from 'wavesurfer.js';
 import { useEffect, useRef } from 'react';
+import { nanoid } from "nanoid";
 
 
 export const RecordingTypeMessage = ({
     url,
-    isCurrentUser
 }) => {
 
     const [isPlaying, setIsPlaying] = useState(false);
@@ -16,16 +16,18 @@ export const RecordingTypeMessage = ({
     const Icon = isPlaying ? FaPause : FaPlay;
 
     const wavesurferRef = useRef(null);
+    const containerRef = useRef(null);
 
     useEffect(() => {
         wavesurferRef.current = WaveSurfer.create({
-            container: '#waveform',
+            container: containerRef.current,
             waveColor: 'white',
-            progressColor: 'gray',
+            progressColor: '#b3b3b3',
             cursorColor: 'transparent',
             barWidth : 3,
-            barRadius : 4,
+            barRadius : 10,
             barGap : 3,
+            barHeight : 3,
             autoCenter : true,
             height : "auto",
             width : "auto"
@@ -59,7 +61,7 @@ export const RecordingTypeMessage = ({
                 onClick={handleMediaControl}
                 className="text-white h-5 w-5 cursor-default md:cursor-pointer"
             />
-            <div id="waveform" className="h-8 w-full"/>
+            <div ref = {containerRef} className="h-8 w-full"/>
         </div>
     );
 }
