@@ -47,7 +47,7 @@ const Login = () => {
                     </div>
                     <div className="col-span-3 space-y-4 md:space-y-8">
                         <p className="text-3xl md:text-5xl lg:text-7xl font-bold lg:leading-[5.35rem]">
-                            Work doesn't stop, neither does chat.
+                            Work doesn&apos;t stop, neither does chat.
                         </p>
                         <div className="flex flex-col items-start">
                             <h3 className="text-emerald-400 font-medium">Sign Up for free</h3>

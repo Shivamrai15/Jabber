@@ -150,15 +150,15 @@ export const Messages = ({messages, setMessages , sessionId, chatId}) => {
         router.refresh();
     }, [pathname])
 
-    // if (!isTyping && messages?.length === 0){
-    //     return (
-    //         <div className="w-full h-[calc(100%-160px)] flex justify-center items-center">
-    //             <div  className="max-w-sm w-72 relative bg-black bg-opacity-40 flex flex-col justify-center items-center rounded-xl p-4 cursor-default">
-    //                 💀 Chat's dead, hit me up. 💯
-    //             </div>
-    //         </div>
-    //     );
-    // }
+    if (!isTyping && messages?.length === 0){
+        return (
+            <div className="w-full h-[calc(100%-160px)] flex justify-center items-center">
+                <div  className="max-w-sm w-72 relative bg-black bg-opacity-40 flex flex-col justify-center items-center rounded-xl p-4 cursor-default">
+                    💀 Chat&apos;s dead, hit me up. 💯
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className={cn(
