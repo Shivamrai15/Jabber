@@ -23,6 +23,10 @@ body,
   }
 }
 
+.clip {
+  clip-path: polygon(28% 90%, 0 100%, 96% 100%);
+}
+
 @media screen and (min-width : 768px) {
   .modal-scroll::-webkit-scrollbar{
     background: #00000000;

@@ -158,8 +158,8 @@ export const RecordModal = () => {
     const handleClose = (open) => {
 
         if (!open) {
-            onClose();
             onDeleteRecording();
+            onClose();
         }
     }
 
