@@ -53,7 +53,7 @@ export const FriendRequests = ({incomingFriendRequests, sessionId}) => {
             router.refresh();
         } catch (error) {
             console.error(error);
-            toast.error("Something went wrong!");
+            // toast.error("Something went wrong!");
         } 
     }
 
