@@ -5,7 +5,6 @@ import { ChevronLeft } from "lucide-react";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { FriendRequests } from "../_components/friend-requests";
-import { SideBarSheet } from "@/components/sidebar";
 
 
 const NotificationPage = async() => {
@@ -28,7 +27,12 @@ const NotificationPage = async() => {
         <div className="h-full w-full overflow-y-auto">
             <div className="h-16 w-full z-50 flex items-center bg-neutral-900 px-4 md:px-8 sticky top-0">
                 <div className="md:hidden flex items-center justify-center mr-5">
-                    <SideBarSheet/>
+                    <Link
+                        scroll = {false}
+                        href="/"
+                    >
+                        <ChevronLeft className="cursor-default" />
+                    </Link>
                 </div>
                 <h2 className="text-white font-semibold text-sm">
                     Notifications

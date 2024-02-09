@@ -63,7 +63,7 @@ export const UploadDocumentModal = () => {
     const sendMessage = async () => {
         try {
             if (responseUrl !== null){
-                await axios.post("/api/send-message", {
+                axios.post("/api/send-message", {
                     id : nanoid(),
                     text : responseUrl,
                     type : "document",

@@ -65,7 +65,7 @@ export const UploadImageModal = () => {
                     message
                 });
     
-                await axios.post("/api/send-message", {
+                axios.post("/api/send-message", {
                     id : nanoid(),
                     text : msg_data,
                     type : "image",
@@ -75,6 +75,7 @@ export const UploadImageModal = () => {
                     isReceived : false,
                     timestamp : Date.now()
                 });
+                
                 handleOnCancel();
             }
         } catch (error) {

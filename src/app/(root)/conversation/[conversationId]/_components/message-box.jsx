@@ -74,6 +74,15 @@ export const MessageBox = ({
         onOpen();
     }
 
+    const isURI = () => {
+        try {
+            const url = new URL(data.text);
+            return true
+        } catch (error) {
+            return false
+        }
+    }
+
     return (
         <ContextMenu>
             <ContextMenuTrigger>
@@ -93,14 +102,23 @@ export const MessageBox = ({
                             )}
                         >
                             <div className = "flex flex-row items-end gap-x-2 transition-all duration-200">
-                                <span className={cn(
+                                <div className={cn(
                                     "px-4 py-2 rounded-3xl inline-block cursor-default select-none",
                                     !containsOnlyEmojis(data.text) && isCurrentUser ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white" : "bg-[#1b1b1b] text-white", 
                                     !hasNextMessageFromSameUser && isCurrentUser && "rounded-br-none",
                                     !hasNextMessageFromSameUser && !isCurrentUser && "rounded-bl-none",
                                     data.type === "text" && containsOnlyEmojis(data.text) && "bg-transparent text-5xl text-center",
                                 )}>
-                                    {data.type === "text" && (
+                                    { (data.type === "text" && isURI(data.text)) ? (
+                                        <a
+                                            href={data.text}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="underline"
+                                        >
+                                            { data.text + ' '}
+                                        </a>
+                                    ) : (
                                         <span
                                             className={cn(
                                                 data.type === "text" && data.text === "⊘ This message was deleted" && "text-sm italic py-3 mr-2"
@@ -108,7 +126,7 @@ export const MessageBox = ({
                                         >
                                             {(data.text + ' ')}
                                         </span>
-                                    )}
+                                    ) }
                                     {data.type === "image" && (
                                         <ImageTypeMessage
                                             data={JSON.parse(data.text)}
@@ -135,7 +153,7 @@ export const MessageBox = ({
                                     >
                                         {formatTimeStamp(data.timestamp)}
                                     </span>}
-                                </span>
+                                </div>
                                 {
                                     !data.isReceived && <SendHorizontal className="h-3 w-3 text-zinc-400" />
                                 }

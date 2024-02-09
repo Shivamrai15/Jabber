@@ -1,6 +1,7 @@
-import { SideBarSheet } from "@/components/sidebar";
+import Link from 'next/link';
 import { ChatSettings } from "./chat-settings";
 import { UserProfile } from "@/components/user-profile";
+import { ChevronLeft } from "lucide-react";
 
 const ChatHeader = ({conversationFriend, conversationId}) => {
 
@@ -8,7 +9,12 @@ const ChatHeader = ({conversationFriend, conversationId}) => {
         <div className="flex items-center justify-between w-full h-16 bg-neutral-900 px-4 md:px-8 border-b border-black">
             <div className="flex items-center gap-x-4">
                 <div className="md:hidden">
-                    <SideBarSheet/>
+                    <Link
+                        scroll = {false}
+                        href="/"
+                    >
+                        <ChevronLeft className="cursor-default" />
+                    </Link>
                 </div>
                 <UserProfile user={conversationFriend}/>
                 <div className="flex flex-col w-full truncate cursor-default">

@@ -51,14 +51,11 @@ export const RecordModal = () => {
             setLoading(true);
             if (!file) return ;
 
-
             const res = await edgestore.publicFiles.upload({
                 file : file,
             });
 
-            console.log(res)
-
-            await axios.post("/api/send-message", {
+            axios.post("/api/send-message", {
                 id : nanoid(),
                 text : res.url,
                 type : "recording",

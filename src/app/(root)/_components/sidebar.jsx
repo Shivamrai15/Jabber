@@ -97,11 +97,11 @@ export const Sidebar = ({
         <div className="w-full h-full flex flex-col gap-y-5">
             <div className="w-full flex justify-between items-center text-white p-3 md:p-5">
                 <h3 className="text-xl md:text-lg font-semibold">Chats</h3>
-                <Link href="/" className="cursor-default md:cursor-pointer">
+                <Link href="/" className="hidden md:block md:cursor-pointer">
                     <BiMessageSquareDetail className="h-6 w-6 text-white"/>
                 </Link>
             </div>
-            <div className="h-full w-full overflow-y-auto">
+            <div className="h-full w-full overflow-y-auto message-scroll">
                 <nav className="flex flex-1 flex-col w-full">
                     <ul role="list" className="flex flex-1 flex-col gap-y-1 px-3 md:px-5 w-full">
                         {friends.sort().map((friend)=>{
