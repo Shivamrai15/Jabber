@@ -77,6 +77,7 @@ export const MessageBox = ({
     const isURI = () => {
         try {
             const url = new URL(data.text);
+            console.log(url);
             return true
         } catch (error) {
             return false
@@ -109,7 +110,7 @@ export const MessageBox = ({
                                     !hasNextMessageFromSameUser && !isCurrentUser && "rounded-bl-none",
                                     data.type === "text" && containsOnlyEmojis(data.text) && "bg-transparent text-5xl text-center",
                                 )}>
-                                    { (data.type === "text" && isURI(data.text)) ? (
+                                    { data.type === "text" && (isURI(data.text) ? (
                                         <a
                                             href={data.text}
                                             target="_blank"
@@ -126,7 +127,7 @@ export const MessageBox = ({
                                         >
                                             {(data.text + ' ')}
                                         </span>
-                                    ) }
+                                    ) )}
                                     {data.type === "image" && (
                                         <ImageTypeMessage
                                             data={JSON.parse(data.text)}
