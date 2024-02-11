@@ -12,7 +12,7 @@ const DashboardLayout = async({children}) => {
 
     return (
         <div className="h-full flex w-full">
-            <div className="hidden md:block h-full w-full max-w-xs grow border-r border-black bg-neutral-900">
+            <div className="hidden md:block h-full w-full max-w-xs lg:max-w-sm grow border-r border-black bg-neutral-900">
                 <SideBarComponent/>
             </div>
             <main className="h-full w-full flex-1">

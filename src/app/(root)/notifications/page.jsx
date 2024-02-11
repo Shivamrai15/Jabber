@@ -7,6 +7,10 @@ import Link from "next/link";
 import { FriendRequests } from "../_components/friend-requests";
 
 
+export const metadata = {
+    title : "Notifications",
+}
+
 const NotificationPage = async() => {
 
     const session = await getServerSession(authOptions);

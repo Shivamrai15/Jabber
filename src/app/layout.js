@@ -14,6 +14,7 @@ export const metadata = {
   keywords: [
     'chat app', 'chat', 'messaging app', 'messenger', 'messaging', 'communication app', 'group chat', 'video chat', 'voice chat', 'free chat', 'secure chat', 'private chat', 'encrypted chat', 'chat with friends', 'chat with family', 'chat with strangers', 'chat for business', 'chat for work', 'chat for school', 'chat for gamers', 'chat for everyone'
   ],
+  description : "Jabber is a messaging app for your phone and computer. It lets you chat smoothly and securely with others.",
 }
 
 export default function RootLayout({ children }) {

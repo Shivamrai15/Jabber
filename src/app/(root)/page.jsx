@@ -1,6 +1,11 @@
 import Image from "next/image";
 import { SideBarComponent } from "./_components/sidebar-component";
 
+export const metadata = {
+    title : "Inbox",
+    description : "Tracks your conversations: sender, time, status."
+}
+
 const RootPage = () => {
     return (
         <div className="w-full h-full ">

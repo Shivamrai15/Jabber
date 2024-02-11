@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 
+export const metadata = {
+    title : "Connect with new contacts",
+    description : "Connect with new contacts: Find by email, send request."
+}
 
 const AddLayout = ({children}) => {
     return (

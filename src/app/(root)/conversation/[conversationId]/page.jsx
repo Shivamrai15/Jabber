@@ -9,6 +9,10 @@ import { PageLayout } from "./_components/page-layout";
 
 export const revalidate = 0;
 
+export const metadata = {
+    title : "Your messages"
+}
+
 async function getChatMessages(chatId){
     try {
         const results = await fetchRedis(
