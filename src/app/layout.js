@@ -15,6 +15,10 @@ export const metadata = {
     'chat app', 'chat', 'messaging app', 'messenger', 'messaging', 'communication app', 'group chat', 'video chat', 'voice chat', 'free chat', 'secure chat', 'private chat', 'encrypted chat', 'chat with friends', 'chat with family', 'chat with strangers', 'chat for business', 'chat for work', 'chat for school', 'chat for gamers', 'chat for everyone'
   ],
   description : "Jabber is a messaging app for your phone and computer. It lets you chat smoothly and securely with others.",
+  openGraph: {
+    images: ["https://res.cloudinary.com/dkaj1swfy/image/upload/v1707883716/wmyk9up0dqhoecbl6ga7.png"],
+    type : "website",
+  },
 }
 
 export default function RootLayout({ children }) {
