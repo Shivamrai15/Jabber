@@ -7,6 +7,7 @@ import { DocumenTypeMessage } from "./document-type-message";
 import { RecordingTypeMessage } from "./recording-type-message";
 import { toast } from "sonner";
 import axios from "axios";
+import { nanoid } from "nanoid";
 
 import {
     ContextMenu,
@@ -18,11 +19,37 @@ import {
 import {
     Copy,
     Trash2,
-    Atom,
     Forward,
-    SendHorizontal
+    SendHorizontal,
+    ArrowDownToLine
 } from "lucide-react";
 import { useForwardMessageModal } from "@/hooks/use-forward-message-modal";
+
+const downlaodFile = async( link, filename )=>{
+    try {
+
+        const response = await axios.get(link, {
+            responseType : 'blob',
+        });
+
+        console.log("Response", response);
+
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+
+        console.log(url);
+
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = filename;
+        document.body.append(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        
+    } catch (error) {
+        console.error(error);
+    } 
+}
 
 export const MessageBox = ({
     data,
@@ -36,7 +63,7 @@ export const MessageBox = ({
 
     const formatTimeStamp = (timestamp)=>{
         if (!timestamp) return '';
-        return format(timestamp, "dd-LLL HH:mm")
+        return format(timestamp, "HH:mm a")
     }
 
     function containsOnlyEmojis(inputString) {
@@ -74,6 +101,17 @@ export const MessageBox = ({
         onOpen();
     }
 
+    const handleDownload = async() => {
+
+        const parsedData = JSON.parse(data.text);
+        if (data.type === "document"){
+            await downlaodFile(parsedData.url, parsedData.fileName);
+        } else {
+            const extension = parsedData.url.split(".").pop();
+            await downlaodFile(parsedData.url, `jb-${nanoid(35)}.${extension}`);
+        }
+    }
+
     const isURI = () => {
         try {
             const url = new URL(data.text);
@@ -104,10 +142,12 @@ export const MessageBox = ({
                         >
                             <div className = "flex flex-row items-end gap-x-2 transition-all duration-200">
                                 <div className={cn(
-                                    "px-4 py-2 rounded-3xl inline-block cursor-default select-none",
-                                    !containsOnlyEmojis(data.text) && isCurrentUser ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white" : "bg-[#1b1b1b] text-white", 
+                                    "px-4 py-1.5 rounded-3xl inline-block cursor-default select-none relative",
+                                    !containsOnlyEmojis(data.text) && isCurrentUser ? "bg-[#2a6883] text-white" : "bg-[#1b1b1b] text-white", 
                                     !hasNextMessageFromSameUser && isCurrentUser && "rounded-br-none",
                                     !hasNextMessageFromSameUser && !isCurrentUser && "rounded-bl-none",
+                                    isCurrentUser && hasNextMessageFromSameUser && "rounded-br-xl",
+                                    !isCurrentUser && hasNextMessageFromSameUser && "rounded-bl-xl",
                                     data.type === "text" && containsOnlyEmojis(data.text) && "bg-transparent text-5xl text-center",
                                 )}>
                                     { data.type === "text" && (isURI(data.text) ? (
@@ -115,7 +155,7 @@ export const MessageBox = ({
                                             href={data.text}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="underline"
+                                            className="underline pr-2"
                                         >
                                             { data.text + ' '}
                                         </a>
@@ -148,9 +188,13 @@ export const MessageBox = ({
                                     }
                                     { !containsOnlyEmojis(data.text) && <span
                                         className = {cn(
-                                            "text-[10px] text-zinc-200 whitespace-nowrap",
-                                            data.type === "text" && "ml-auto"
+                                            "px-8 ml-2",
+                                            data.type === "text" && ""
                                         )}
+                                    >
+                                    </span>}
+                                    { !containsOnlyEmojis(data.text) && <span
+                                        className = "absolute bottom-1 right-4 text-xs text-zinc-200 font-medium"
                                     >
                                         {formatTimeStamp(data.timestamp)}
                                     </span>}
@@ -169,7 +213,9 @@ export const MessageBox = ({
                     data.type === "text" && data.text !== "⊘ This message was deleted" &&
                     <ContextMenuItem onClick = {copyMessage}>
                         <Copy className="h-5 w-5 ml-2 mr-4"/>
-                        Copy
+                        {
+                            isURI(data.text) ? "Copy link" : "Copy"
+                        }
                     </ContextMenuItem>
                 }
                 {
@@ -180,15 +226,16 @@ export const MessageBox = ({
                     </ContextMenuItem>
                 }
                 {
-                    !isCurrentUser && data.type === "text" && data.text !== "⊘ This message was deleted" &&
-                    <ContextMenuItem>
-                        <Atom className="h-5 w-5 ml-2 mr-4"/>
-                        Ask to AI
-                    </ContextMenuItem>
+                    data.type !== "text" && data.type !== "recording" && (
+                        <ContextMenuItem onClick = { handleDownload } >
+                            <ArrowDownToLine className="h-5 w-5 ml-2 mr-4" />
+                            Download
+                        </ContextMenuItem>
+                    )
                 }
                 {
                     isCurrentUser && data.text !== "⊘ This message was deleted" &&
-                    <ContextMenuItem onClick = {onDeleteMessage}>
+                    <ContextMenuItem onClick = {onDeleteMessage} className = "text-rose-500 focus:text-rose-400 font-semibold">
                         <Trash2 className="h-5 w-5 ml-2 mr-4"/>
                         Delete
                     </ContextMenuItem>

@@ -1,59 +1,66 @@
 "use client";
-import { HiDownload } from "react-icons/hi";
-import { toast } from "sonner";
-import axios from "axios";
-import { useState } from "react";
-import {
-    Loader2
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+
+import Image from "next/image";
 
 export const DocumenTypeMessage = ({data}) => {
 
-    const [isDownloading, setIsDownloading] = useState(false);
+    const extension = data.fileName.split(".").pop();
 
-    const handleDownlaod = async()=>{
-        try {
-            setIsDownloading(true);
-            const response = await axios.get(data.url, {
-                responseType : 'blob',
-            });
-
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = data.fileName;
-            document.body.append(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-            
-        } catch (error) {
-            console.error(error);
-            toast.error("Something went wrong");
-        } finally{
-            setIsDownloading(false);
+    const fileIcon = () => {
+        switch(extension) {
+            case "jpg" : 
+                return "/icons/jpg.svg";
+            case "jpeg" : 
+                return "/icons/jpg.svg";
+            case "png" : 
+                return "/icons/png.svg";
+            case "mp3" : 
+                return "/icons/mp3.svg";
+            case "zip" : 
+                return "/icons/zip.svg";
+            case "pdf" : 
+                return "/icons/pdf.svg";
+            case "docx" : 
+                return "/icons/doc.svg";
+            case "doc" : 
+                return "/icons/doc.svg";
+            case "ppt" : 
+                return "/icons/ppt.svg";
+            case "pptx" : 
+                return "/icons/ppt.svg";
+            case "gif" : 
+                return "/icons/gif.svg";
+            case "txt" : 
+                return "/icons/txt.svg";
+            case "xls" : 
+                return "/icons/xls.svg";
+            case "csv" : 
+                return "/icons/xls.svg";
+            case "xlsx" : 
+                return "/icons/xls.svg";
+            case "svg" : 
+                return "/icons/svg.svg";
+            case "mp4" : 
+                return "/icons/video.svg";
+            case "mkv" : 
+                return "/icons/video.svg";
+            default : 
+                return "/icons/file.svg";
         }
     }
 
-    const Icon = isDownloading ? Loader2 : HiDownload
-
     return (
-        <div className="w-64 h-16 mt-2  bg-black bg-opacity-50 rounded-md flex items-center px-3 gap-x-4">
-            <div
-                role="button"
-                onClick={handleDownlaod}
-                className = "rounded-full p-2 bg-opacity-60 border border-zinc-600 bg-black cursor-default md:cursor-pointer"
-            >
-                <Icon className={cn(
-                    "h-6 w-6",
-                    isDownloading && "animate-spin"
-                )}/>
+        <div className="w-64 h-14 md:h-16 mt-2  rounded-md flex items-center gap-x-4">
+            <div className = "h-12 w-12 md:h-14 md:w-14 relative rounded-sm overflow-hidden">
+                <Image
+                    src = {fileIcon()}
+                    fill
+                    className = "object-contain"
+                />
             </div>
             <div className="w-full truncate flex flex-col">
                 <p className="text-sm truncate">{data.fileName}</p>
-                <span className="text-xs text-zinc-400" >{data.size}</span>
+                <span className="text-xs text-zinc-200" >{data.size}</span>
             </div>
         </div>
     );

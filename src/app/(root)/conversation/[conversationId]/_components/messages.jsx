@@ -5,8 +5,20 @@ import { pusherClient } from "@/lib/pusher";
 import { cn, toPusherKey } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
 import { useLastMessage } from "@/hooks/use-last-message";
+import { DateDisplay } from "@/components/date-display";
 
 export const revalidate = 0;
+
+const getDate = ( timestamp ) => {
+    try {
+
+        const date = new Date(timestamp);
+        return date.getDate();
+
+    } catch (error) {
+        return 0;
+    }
+}
 
 export const Messages = ({messages, setMessages , sessionId, chatId}) => {
 
@@ -168,14 +180,34 @@ export const Messages = ({messages, setMessages , sessionId, chatId}) => {
             {messages.map((message, index)=>{
                 const isCurrentUser = message.senderId === sessionId;
                 const hasNextMessageFromSameUser = messages?.[index+1]?.senderId === messages?.[index]?.senderId
-                return <MessageBox
-                    key = {`${message.id}-${message.timestamp}`}
-                    data = {message}
-                    conversationId = {chatId}
-                    isCurrentUser = {isCurrentUser}
-                    hasNextMessageFromSameUser = {hasNextMessageFromSameUser}
-                    sessionId = {sessionId}
-                />
+                return (
+                    <>
+                        {
+                            index === 0 && (
+                                <DateDisplay timestamp={message?.timestamp} />
+                            )
+                        }
+                        <MessageBox
+                            key = {`${message.id}-${message.timestamp}`}
+                            data = {message}
+                            conversationId = {chatId}
+                            isCurrentUser = {isCurrentUser}
+                            hasNextMessageFromSameUser = {hasNextMessageFromSameUser}
+                            sessionId = {sessionId}
+                        />
+                        {
+                            getDate(message.timestamp) < getDate(messages[index+1]?.timestamp) && (
+                                <div className="w-full flex items-center justify-center py-10">
+                                    <div>
+                                        {
+                                            <DateDisplay timestamp={messages[index+1]?.timestamp} />
+                                        }
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </>
+                )
             })}
             {
                 isTyping && (
