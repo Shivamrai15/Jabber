@@ -9,6 +9,7 @@ import { IconPicker } from "./emoji-picker";
 import { useRecordModal } from "@/hooks/use-recorder-modal";
 import { useTranslate } from "@/hooks/use-translate";
 import { nanoid } from "nanoid";
+import { HiPaperAirplane } from "react-icons/hi2";
 
 
 export const MessageInput = ({
@@ -132,7 +133,7 @@ export const MessageInput = ({
         <div className="w-full h-24 flex justify-between">
             <div className="w-full mx-5 md:mx-10 lg:mx-28 xl:mx-56 h-12">
                 <div className="border-t border-zinc-600 w-full rounded-full"/>
-                <div className="w-full h-14 mt-5 flex items-center">
+                <div className="w-full h-12 md:h-14 mt-5 flex items-center">
                     <div className="flex flex-1 items-center w-full h-full">
                         <div className="flex w-full h-full rounded-2xl rounded-br-none items-center bg-neutral-900 px-4">
                             <Media
@@ -147,7 +148,7 @@ export const MessageInput = ({
                                 />
                             </div>
                             <Input
-                                className = "w-full h-8 bg-neutral-900 border-0 outline-none focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-200 placeholder:text-zinc-600" 
+                                className = "w-full h-6 md:h-8 bg-neutral-900 border-0 outline-none focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-200 placeholder:text-zinc-600" 
                                 placeholder  = "Type a message"
                                 value = {textMessage}
                                 disabled = {isLoading}
@@ -160,10 +161,10 @@ export const MessageInput = ({
                         </div>
                     </div>
                     <div
-                        className="w-14 h-14 flex justify-center items-center bg-neutral-900 rounded-full cursor-default md:cursor-pointer"
-                        onClick={onOpen}
+                        className="h-12 w-12 md:w-14 md:h-14 flex justify-center items-center bg-neutral-900 rounded-full cursor-default md:cursor-pointer"
+                        onClick={(textMessage.length >=1) ? sendMessage : onOpen }
                     >
-                        <MicIcon/>
+                        { (textMessage.length >=1) ? <HiPaperAirplane className="h-6 w-6" /> : <MicIcon/> }
                     </div>
                 </div>
             </div>
